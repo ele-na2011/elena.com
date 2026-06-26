@@ -5,8 +5,11 @@ function updateTime() {
     timeText.innerHTML = currentTime;
 }
 setInterval(updateTime, 1000);
+
 // Make the DIV element draggable:
 dragElement(document.getElementById("welcome"));
+dragElement(document.getElementById("notebook"));
+dragElement(document.getElementById("embedPlaylist"));
 
 // Step 1: Define a function called `dragElement` that makes an HTML element draggable.
 function dragElement(element) {
@@ -17,10 +20,10 @@ function dragElement(element) {
   var currentY = 0;
 
   // Step 3: Check if there is a special header element associated with the draggable element.
-  if (document.getElementById("welcomeHandler")) {
+  if (document.getElementById(element .id + "Handler")) {
     // Step 4: If present, assign the `dragMouseDown` function to the header's `onmousedown` event.
     // This allows you to drag the window around by its header.
-    document.getElementById("welcomeHandler").onmousedown = startDragging;
+    document.getElementById(element .id + "Handler").onmousedown = startDragging;
   } else {
     // Step 5: If not present, assign the function directly to the draggable element's `onmousedown` event.
     // This allows you to drag the window by holding down anywhere on the window.
@@ -59,12 +62,7 @@ function dragElement(element) {
     document.onmousemove = null;
   }
 }
-startDragging(document.getElementById("welcomeHandler"));
-startDragging(document.getElementById("embedPlaylistHandler"));
-startDragging(document.getElementById("notebookHandler"));
-dragElement(document.getElementById("embedPlaylist"));
-dragElement(document.getElementById("notebook"));
-dragElement(document.getElementById("welcome"));
+
 
 var welcomeScreen = document.querySelector("#welcome");
 function closeWindow(element) {
