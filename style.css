@@ -13,8 +13,9 @@
     padding: 10px; 
     margin: 10px; 
     position:absolute; 
-    top:0px; 
-    left:0px; 
+    top:50%; 
+    left:50%; 
+    transform:translate(-50%, -50%);
     overflow:auto; 
     background-color:#cb8bf0; 
     flex-direction:column;
