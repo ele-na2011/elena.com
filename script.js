@@ -9,7 +9,7 @@ setInterval(updateTime, 1000);
 dragElement(document.getElementById("welcome")); // Make the welcome window draggable
 
 function dragElement(element) {
-  const handle = document.getElementById(element.id + "welcomeHandler") || element;
+  const handle = document.getElementById("welcomeHandler") || element;
 
   handle.onmousedown = dragMouseDown;
 
