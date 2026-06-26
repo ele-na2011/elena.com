@@ -59,7 +59,9 @@ function dragElement(element) {
     document.onmousemove = null;
   }
 }
-
+startDragging(document.getElementById("welcomeHandler"));
+startDragging(document.getElementById("embedPlaylistHandler"));
+startDragging(document.getElementById("notebookHandler"));
 dragElement(document.getElementById("embedPlaylist"));
 dragElement(document.getElementById("notebook"));
 dragElement(document.getElementById("welcome"));

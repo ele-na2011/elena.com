@@ -21,9 +21,12 @@
 
     <!--window for the notebook app-->
     <div class = "window" id = "notebook" style = "padding-top:64px; padding-left:16px; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px; display:flex; flex-direction:column; width:128px; margin-left:16px;">
-      <div class = "icon" id = "notebookHandler" style = "user-select:none; cursor:move;">
+      <div class = "icon" id = "notebookIcon" style = "user-select:none; cursor:move;">
         <img src = "icons8-new-document-96.png" style = "width:64px;height:64px;" class = "selected">
       </div>
+      <p id = "notebookHandler" style = "user-select:none; cursor:move;">
+        <img src = icons8-drag-handle-48.png style = "width:24px;height:24px; margin-left:4px; position:absolute;">
+      </p>
       <div class = "closeButton" id = "closeNotebook" style = "margin-left:64px; margin-top:-48px; width:24px; height:24px; border-radius:50%; background-color:#71239e; color:#cb8bf0; font-size:16px; cursor:pointer;">
         <p>
           <button class = "closeButton" id = "closeButton" onclick = "closeWindow(notebook)">x</button>
@@ -67,6 +70,9 @@
 
     <!--window for the spotify playlist-->
     <div class = "window" id = "embedPlaylist" style = "padding-top:64px; padding-left:16px; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px; display:flex; flex-direction:column; width:25%; margin-right:16px;">
+      <p id = "embedPlaylistHandler" style = "user-select:none; cursor:move;">
+        <img src = icons8-drag-handle-48.png style = "width:24px;height:24px; margin-left:4px; position:absolute;"> 
+      </p>
       <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1D2th3oVuAzVAab2eCA07Q?utm_source=generator&si=8227bd48d44f429b" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
   </body>
