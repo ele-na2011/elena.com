@@ -79,17 +79,20 @@ welcomeScreenOpen.addEventListener("click", function() {
   openWindow(welcomeScreen);
 });
 
-window.onSpotifyIframeApiReady = (IFrameAPI) => {
-  const element = document.getElementById("embed-iframe");
-  const options = {
-    uri: "https://open.spotify.com/playlist/1D2th3oVuAzVAab2eCA07Q?si=d3d55f528c1b4441",
-    width: "100",
-    height: "380",
-  };
-  IFrameAPI.createController(element,options,(EmbedController)) = {
-    //control??
-  }
-}
 
 var selectedIcon = undefined;
+
+function selectIcon(element) {
+  element.classList.add("selected");
+  selectedIcon = element;
+}
+
+function handleIconTap(element) {
+  if (element.classList.contains("selected")) {
+    deselectIcon(element);
+    openWindow(notebook);
+  } else {
+    selectIcon(element);
+  }
+}
 

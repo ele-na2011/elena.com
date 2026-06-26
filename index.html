@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-    <script type="module" src = "./script.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <script type="module" src = "./script.js"></script> //link to the script.js file
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>elena.zip</title>
+    <link rel="stylesheet" href="style.css"> //link to the style.css file
     <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
   </head>
+
+  <!--background image and stuff-->
   <body style = "background-image:url(https://images7.alphacoders.com/134/thumb-1920-1342753.png); background-size:cover; background-position:center; height:100vh; font-family:fantasy; text-align:center; color:#71239e">
+    <!--top bar with the name of the OS and the time-->
     <div style = "display:flex; justify-content:space-between; position:absolute; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px;">
       <p id = "openWelcome"style = "margin-left:16px; padding:4px;">
         elena.zip
@@ -14,15 +21,27 @@
         [insert time here]
       </p>
     </div>
-    <div id="desktopApps" style = "padding-top:64px; padding-left:16px;">
-      <img src = "icons8-new-document-96.png" style = "width:64px;height:64px;" class = "selected">
+
+    <!--window for the notebook app-->
+    <div class = "window" id = "notebook" style = "padding-top:64px; padding-left:16px; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px; display:flex; flex-direction:column; width:128px; margin-left:16px;">
+      <div class = "icon" id = "notebookHandler" style = "user-select:none; cursor:move;">
+        <img src = "icons8-new-document-96.png" style = "width:64px;height:64px;" class = "selected">
+      </div>
+      <div class = "closeButton" id = "closeNotebook" style = "margin-left:64px; margin-top:-48px; width:24px; height:24px; border-radius:50%; background-color:#71239e; color:#cb8bf0; font-size:16px; cursor:pointer;">
+        <p>
+          <button class = "closeButton" id = "closeButton" onclick = "closeWindow(notebook)">x</button>
+        </p>
+      </div>
+      <h1>Notebook</h1>
       <p>
         notebook.pdf
       </p>
     </div>
+
+    <!--window for the welcome screen-->
     <div class = "window"id = "welcome">
       <p id = "welcomeHandler" style = "user-select:none; cursor:move;"">
-        <img src = icons8-drag-handle-48.png style = "width:24px;height:24px; margin-left:4px;">
+        <img src = icons8-drag-handle-48.png style = "width:24px;height:24px; margin-left:4px; position:absolute;">
       </p>
       <h1 class = "windowTitle" style = "margin:4px">
         welcome to my OS
@@ -45,11 +64,13 @@
         Spotify: <a href = "https://open.spotify.com/user/31h2o2dfj5xzb2yewfbd2yvqqmdq?si=3d7b948cb2864a9f">Elena</a>
       </p>
       <p>
-        <button id = "closeButton" onclick = "closeWindow(welcomeScreen)" class = "closeButton">close</button>
+        <button class = "closeButton" id = "closeButton" onclick = "closeWindow(welcomeScreen)">close</button>
       </p>
     </div>
-    <div id="embed-iframe">
 
+    <!--window for the spotify playlist-->
+    <div class = "window" id = "embedPlaylist" style = "padding-top:64px; padding-left:16px; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px; display:flex; flex-direction:column; width:100%; margin-right:16px;">
+      <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1D2th3oVuAzVAab2eCA07Q?utm_source=generator&si=8227bd48d44f429b" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
   </body>
 </html>

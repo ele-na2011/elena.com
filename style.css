@@ -20,3 +20,8 @@
     background-color:#cb8bf0; 
     flex-direction:column;
 }
+
+.icon {
+    width: 64px;
+    height: 64px;
+}
