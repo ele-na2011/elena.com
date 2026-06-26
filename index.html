@@ -3,6 +3,7 @@
   <head>
     <script type="module" src = "./script.js"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
   </head>
   <body style = "background-image:url(https://images7.alphacoders.com/134/thumb-1920-1342753.png); background-size:cover; background-position:center; height:100vh; font-family:fantasy; text-align:center; color:#71239e">
     <div style = "display:flex; justify-content:space-between; position:absolute; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px;">
@@ -11,6 +12,12 @@
       </p>
       <p id = "timeElement" style = "margin-right:16px; padding:4px;">
         [insert time here]
+      </p>
+    </div>
+    <div id="desktopApps" style = "padding-top:64px; padding-left:16px;">
+      <img src = "icons8-new-document-96.png" style = "width:64px;height:64px;" class = "selected">
+      <p>
+        notebook.pdf
       </p>
     </div>
     <div class = "window"id = "welcome">
@@ -23,7 +30,7 @@
       <p>
         hello fellow human being
       </p>
-      <img style = "width:64px;height:64px;border-radius:50%;object-fit:cover; align:center;" 
+      <img style = "width:64px;height:64px;border-radius:50%;object-fit:cover;" 
       src = "https://i.pinimg.com/736x/cb/df/31/cbdf316479bbc75ee1ed645ba9353ebe.jpg">
       <p>
         imagine not knowing the most tuff and cool person in the world... tsk tsk
@@ -40,6 +47,9 @@
       <p>
         <button id = "closeButton" onclick = "closeWindow(welcomeScreen)" class = "closeButton">close</button>
       </p>
+    </div>
+    <div id="embed-iframe">
+
     </div>
   </body>
 </html>
