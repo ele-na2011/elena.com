@@ -60,6 +60,10 @@ function dragElement(element) {
   }
 }
 
+dragElement(document.getElementById("embedPlaylist"));
+dragElement(document.getElementById("notebook"));
+dragElement(document.getElementById("welcome"));
+
 var welcomeScreen = document.querySelector("#welcome");
 function closeWindow(element) {
   element.style.display = "none";
