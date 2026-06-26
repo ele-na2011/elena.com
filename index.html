@@ -1,15 +1,43 @@
 <!DOCTYPE html>
 <html>
   <body style = "background-image:url(https://images7.alphacoders.com/134/thumb-1920-1342753.png); background-size:cover; background-position:center; height:100vh; font-family:fantasy; text-align:center; color:#71239e">
+    <div style = "display:flex; justify-content:space-between; position:absolute; background-color:rgba(0,0,0,0.2);">
+      <p style = "margin-left:16px; padding:4px;">
+        elena.zip
+      </p>
+      <p id = "timeElement" style = "margin-right:16px; padding:4px;">
+        [insert time here]
+      </p>
+    </div>
     <div style = "border:2px solid #71239e; border-radius: 10px; padding: 10px; margin: 10px; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);overflow:auto; background-color:#cb8bf0;">
-      <h1 style = "margin:4px">welcome to my OS</h1> <!--title of the OS-->
-      <p>hello fellow human being</p>
+      <h1 style = "margin:4px">
+        welcome to my OS
+      </h1> <!--title of the OS-->
+      <p>
+        hello fellow human being
+      </p>
       <img style = "width:64px;height:64px;border-radius:50%;object-fit:cover;" 
       src = "https://i.pinimg.com/736x/cb/df/31/cbdf316479bbc75ee1ed645ba9353ebe.jpg">
-      <p>imagine not knowing the most tuff and cool person in the world... tsk tsk</p>
-      <p>at least you're in the right spot ig...</p>
-      <p>Instagram: <a href = "https://www.instagram.com/ele.naaa.y/?hl=en">@ele.naaa.y</a></p>
-      <p>Spotify: <a href = "https://open.spotify.com/user/31h2o2dfj5xzb2yewfbd2yvqqmdq?si=3d7b948cb2864a9f">Elena</a></p>
+      <p>
+        imagine not knowing the most tuff and cool person in the world... tsk tsk
+      </p>
+      <p>
+        at least you're in the right spot ig...
+      </p>
+      <p>
+        Instagram: <a href = "https://www.instagram.com/ele.naaa.y/?hl=en">@ele.naaa.y</a>
+      </p>
+      <p>
+        Spotify: <a href = "https://open.spotify.com/user/31h2o2dfj5xzb2yewfbd2yvqqmdq?si=3d7b948cb2864a9f">Elena</a>
+      </p>
     </div>
+    <script>
+      function updateTime() {
+        var currentTime = new Date().toLocaleString();
+        var timeText = document.querySelector("#timeElement");
+        timeText.innerHTML = currentTime;
+      }
+      setInterval(updateTime, 1000);
+    </script>
   </body>
 </html>
