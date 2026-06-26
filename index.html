@@ -9,7 +9,10 @@
         [insert time here]
       </p>
     </div>
-    <div style = "border:2px solid #71239e; border-radius: 10px; padding: 10px; margin: 10px; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);overflow:auto; background-color:#cb8bf0;">
+    <div id = "welcome" style = "border:2px solid #71239e; border-radius: 10px; padding: 10px; margin: 10px; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);overflow:auto; background-color:#cb8bf0;">
+      <p id = "welcomeHandler" user-select:none; cursor:move;>
+        <img src = icons8-drag-handle-48.png style = "width:24px;height:24px; margin-left:4px;">
+      </p>
       <h1 style = "margin:4px">
         welcome to my OS
       </h1> <!--title of the OS-->
@@ -31,13 +34,6 @@
         Spotify: <a href = "https://open.spotify.com/user/31h2o2dfj5xzb2yewfbd2yvqqmdq?si=3d7b948cb2864a9f">Elena</a>
       </p>
     </div>
-    <script>
-      function updateTime() {
-        var currentTime = new Date().toLocaleString();
-        var timeText = document.querySelector("#timeElement");
-        timeText.innerHTML = currentTime;
-      }
-      setInterval(updateTime, 1000);
-    </script>
+    <script src = "script.js"></script>
   </body>
 </html>
