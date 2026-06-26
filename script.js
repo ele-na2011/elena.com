@@ -65,6 +65,9 @@ function dragElement(element) {
 
 
 var welcomeScreen = document.querySelector("#welcome");
+var notebook = document.querySelector("#notebook");
+var embedPlaylist = document.querySelector("#embedPlaylist");
+
 function closeWindow(element) {
   element.style.display = "none";
 }

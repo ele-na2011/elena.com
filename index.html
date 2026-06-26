@@ -2,7 +2,7 @@
 <html>
 
   <head>
-    <script type="module" src = "./script.js"></script> <!--link to the script.js file-->
+    <script src = "./script.js"></script> <!--link to the script.js file-->
     <link rel="stylesheet" href="style.css"> <!--link to the style.css file-->
     <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
   </head>
@@ -29,7 +29,7 @@
       </p>
       <div class = "closeButton" id = "closeNotebook" style = "margin-left:64px; margin-top:-48px; width:24px; height:24px; border-radius:50%; background-color:#71239e; color:#cb8bf0; font-size:16px; cursor:pointer;">
         <p>
-          <button class = "closeButton" id = "closeButton" onclick = "closeWindow(notebook)">x</button>
+          <button class = "closeButton" id = "closeNotebook" onclick = "closeWindow(notebook)">x</button>
         </p>
       </div>
       <h1>Notebook</h1>
@@ -39,9 +39,9 @@
     </div>
 
     <!--window for the welcome screen-->
-    <div class = "window"id = "welcome">
-      <p id = "welcomeHandler" style = "user-select:none; cursor:move;"">
-        <img src = icons8-drag-handle-48.png style = "width:24px;height:24px; margin-left:4px; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">
+    <div class = "window"id = "welcome" style = "top:50%; left:50%; transform:translate(-50%, -50%);">
+      <p id = "welcomeHandler" style = "user-select:none; cursor:move;">
+        <img src = icons8-drag-handle-48.png style = "width:24px;height:24px; margin-left:4px; position:absolute;">
       </p>
       <h1 class = "windowTitle" style = "margin:4px">
         welcome to my OS
@@ -64,7 +64,7 @@
         Spotify: <a href = "https://open.spotify.com/user/31h2o2dfj5xzb2yewfbd2yvqqmdq?si=3d7b948cb2864a9f">Elena</a>
       </p>
       <p>
-        <button class = "closeButton" id = "closeButton" onclick = "closeWindow(welcomeScreen)">close</button>
+        <button class = "closeButton" id = "closeWelcome" onclick = "closeWindow(welcomeScreen)">close</button>
       </p>
     </div>
 
