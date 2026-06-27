@@ -9,7 +9,7 @@
   <!--background image and stuff-->
   <body style = "background-image:url(https://images7.alphacoders.com/134/thumb-1920-1342753.png); background-size:cover; background-position:center; height:100vh; font-family:fantasy; text-align:center; color:#71239e">
     <!--top bar with the name of the OS and the time-->
-    <div style = "display:flex; justify-content:space-between; position:absolute; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px;">
+    <div id = "top" style = "display:flex; justify-content:space-between; position:absolute; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px;">
       <p id = "openWelcome"style = "margin-left:16px; padding:4px;">
         elena.zip
       </p>
@@ -19,20 +19,22 @@
     </div>
 
     <!--window for the notebook app-->
-    <div class = "window" id = "notebook" style = "padding-top:64px; padding-left:16px; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px; display:flex; flex-direction:column; width:128px; margin-left:16px;">
-      <div class = "icon" id = "notebookIcon" style = "user-select:none; cursor:move;">
+    <div class = "window" id = "notebook" style = "padding-top:64px; padding-left:16px; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px; display:flex; flex-direction:column; width:128px; margin-left:16px; display:none;">
+      <div class = "icon" id = "notebookIcon" style = "user-select:none; cursor:move;" onclick = "initializeWindow('notebook'); openWindow(notebook); handleWindowTap(notebook);">
         <img src = "icons8-new-document-96.png" style = "width:64px;height:64px;" class = "selected">
       </div>
-      <p id = "notebookHandler" style = "user-select:none; cursor:move;">
-        <img src = icons8-drag-handle-48.png style = "width:24px;height:24px;">
-      </p>
-      <h1 class = "windowTitle" style = "margin:4px">
-        notebook
-      </h1> <!--title of the window-->
-      <textarea id = "notebookText" style = "width:100%; height:100%; resize:none; background-color:#cb8bf0; border:none; color:#71239e; font-family:fantasy; font-size:16px; outline:none;"></textarea>
-      <p>
-        <button class = "closeButton" id = "closeNotebook" onclick = "closeWindow(notebook)">close</button>
-      </p>
+      <div>
+        <p id = "notebookHandler" style = "user-select:none; cursor:move;">
+          <img src = icons8-drag-handle-48.png style = "width:24px;height:24px;">
+        </p>
+        <h1 class = "windowTitle" style = "margin:4px">
+          notebook
+        </h1> <!--title of the window-->
+        <textarea id = "notebookText" style = "width:100%; height:100%; resize:none; background-color:#cb8bf0; border:none; color:#71239e; font-family:fantasy; font-size:16px; outline:none;"></textarea>
+        <p>
+          <button class = "closeButton" id = "closeNotebook" onclick = "closeWindow(notebook)">close</button>
+        </p>
+      </div>
     </div>
 
     <!--window for the welcome screen-->
@@ -74,6 +76,9 @@
         spotify
       </h1> <!--title of the window-->
       <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1D2th3oVuAzVAab2eCA07Q?utm_source=generator&si=8227bd48d44f429b" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <p>
+        <button class = "closeButton" id = "closeEmbedPlaylist" onclick = "closeWindow(embedPlaylist)">close</button>
+      </p>
     </div>
     <script src = "./script.js"></script> <!--link to the script.js file-->
   </body>

@@ -37,6 +37,9 @@ function dragElement(element) {
   }
 }
 
+var topBar = document.querySelector("#top");
+
+
 
 var welcomeScreen = document.querySelector("#welcome");
 var notebook = document.querySelector("#notebook");
@@ -47,7 +50,10 @@ function closeWindow(element) {
 }
 function openWindow(element) {
     element.style.display = "flex";
-    }
+    biggestIndex++;
+    element.style.zIndex = biggestIndex;
+    topBar.style.zIndex = biggestIndex + 1; // Ensure the top bar is always above the windows
+}
 
 var welcomeScreenClose = document.querySelector("#closeButton");
 var welcomeScreenOpen = document.querySelector("#openWelcome");
@@ -77,3 +83,24 @@ function handleIconTap(element) {
   }
 }
 
+var biggestIndex = 1;
+
+function addWindowTapHandling(element) {
+  element.addEventListener("mousedown", () =>
+    handleWindowTap(element)
+  )
+}
+
+function handleWindowTap(element) {
+  biggestIndex++;
+  element.style.zIndex = biggestIndex;
+  topBar.style.zIndex = biggestIndex + 1; // Ensure the top bar is always above the windows
+  deselectIcon(selectedIcon);
+}
+
+function initializeWindow(elementName) {
+  var screen = document.querySelector("#" + elementName);
+  addWindowTapHandling(screen);
+  makeClosable(elementName);
+  dragElement(screen);
+}
