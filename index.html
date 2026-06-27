@@ -27,14 +27,12 @@
       <p id = "notebookHandler" style = "user-select:none; cursor:move;">
         <img src = icons8-drag-handle-48.png style = "width:24px;height:24px; margin-left:4px; position:absolute;">
       </p>
-      <div class = "closeButton" id = "closeNotebook" style = "margin-left:64px; margin-top:-48px; width:24px; height:24px; border-radius:50%; background-color:#71239e; color:#cb8bf0; font-size:16px; cursor:pointer;">
-        <p>
-          <button class = "closeButton" id = "closeNotebook" onclick = "closeWindow(notebook)">x</button>
-        </p>
-      </div>
-      <h1>Notebook</h1>
+      <h1 class = "windowTitle" style = "margin:4px">
+        notebook
+      </h1> <!--title of the window-->
+      <textarea id = "notebookText" style = "width:100%; height:100%; resize:none; background-color:#cb8bf0; border:none; color:#71239e; font-family:fantasy; font-size:16px; outline:none;"></textarea>
       <p>
-        notebook.pdf
+        <button class = "closeButton" id = "closeNotebook" onclick = "closeWindow(notebook)">close</button>
       </p>
     </div>
 
@@ -69,10 +67,13 @@
     </div>
 
     <!--window for the spotify playlist-->
-    <div class = "window" id = "embedPlaylist" style = "padding-top:64px; padding-left:16px; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px; display:flex; flex-direction:column; width:25%; margin-right:16px; top:15%; right:15%;">
+    <div class = "window" id = "embedPlaylist" style = "padding-top:48px; padding-left:16px; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px; display:flex; flex-direction:column; width:25%; margin-right:16px; top:15%; right:15%;">
       <p id = "embedPlaylistHandler" style = "user-select:none; cursor:move;">
-        <img src = icons8-drag-handle-48.png style = "width:24px;height:24px; margin-left:4px; position:absolute;"> 
+        <img src = icons8-drag-handle-48.png style = "width:24px;height:24px; margin-left:4px; margin-top:4px; position:absolute;"> 
       </p>
+      <h1 class = "windowTitle" style = "margin:4px">
+        spotify
+      </h1> <!--title of the window-->
       <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1D2th3oVuAzVAab2eCA07Q?utm_source=generator&si=8227bd48d44f429b" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
   </body>
