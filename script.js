@@ -34,6 +34,8 @@ function dragElement(element) {
   function startDragging(e) {
     e = e || window.event;
     e.preventDefault();
+    console.log("clientX:", e.clientX, "clientY:", e.clientY, "newTop:", element.offsetTop - currentY, "newLeft:", element.offsetLeft - currentX);
+
     // Step 7: Get the mouse cursor position at startup.
     initialX = e.clientX;
     initialY = e.clientY;
