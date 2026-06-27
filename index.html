@@ -20,7 +20,7 @@
 
     <!--window for the notebook app-->
     <div id = "notebook" style = "padding-top:64px; padding-left:16px; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px; display:flex; flex-direction:column; width:128px; margin-left:16px;">
-      <div class = "icon" id = "notebookIcon" style = "user-select:none; cursor:move;" onclick = "initializeWindow('notebook'); openWindow(notebook); handleWindowTap(notebook);">
+      <div class="icon" id="notebookIcon" style="user-select:none; cursor:move;" onclick="initializeWindow('notebookWindow'); openWindow(notebookWindow); handleWindowTap(notebookWindow);">
         <img src = "icons8-new-document-96.png" style = "width:64px;height:64px;" class = "selected">
       </div>
       <div class = "window" id = "notebookWindow" style = "display:none; flex-direction:column; width:100%; height:100%;">
@@ -32,7 +32,7 @@
         </h1> <!--title of the window-->
         <textarea id = "notebookText" style = "width:100%; height:100%; resize:none; background-color:#cb8bf0; border:none; color:#71239e; font-family:fantasy; font-size:16px; outline:none;"></textarea>
         <p>
-          <button class = "closeButton" id = "closeNotebook" onclick = "closeWindow(notebook)">close</button>
+          <button class = "closeButton" id = "closeNotebook" onclick = "closeWindow(notebookWindow)">close</button>
         </p>
       </div>
     </div>
