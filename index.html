@@ -19,7 +19,7 @@
     </div>
 
     <!--window for the notebook app-->
-    <div id = "notebook" style = "padding-top:64px; padding-left:16px; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px; display:flex; flex-direction:column; width:128px; margin-left:16px;">
+    <div id = "notebook" style = "padding-top:64px; padding-left:16px;">
       <div class="icon" id="notebookIcon" style="user-select:none; cursor:move;" onclick="initializeWindow('notebookWindow'); openWindow(notebookWindow); handleWindowTap(notebookWindow);">
         <img src = "icons8-new-document-96.png" style = "width:64px;height:64px;" class = "selected">
       </div>
@@ -38,7 +38,7 @@
     </div>
 
     <!--window for the welcome screen-->
-    <div class = "window"id = "welcome" style = "top:40%; left:40%;">
+    <div class = "window"id = "welcome" style = "top:20%; left:35%;">
       <p id = "welcomeHandler" style = "user-select:none; cursor:move;">
         <img src = icons8-drag-handle-48.png style = "width:24px;height:24px;">
       </p>
@@ -58,9 +58,6 @@
       </p>
       <p>
         Instagram: <a href = "https://www.instagram.com/ele.naaa.y/?hl=en">@ele.naaa.y</a>
-      </p>
-      <p>
-        Spotify: <a href = "https://open.spotify.com/user/31h2o2dfj5xzb2yewfbd2yvqqmdq?si=3d7b948cb2864a9f">Elena</a>
       </p>
       <p>
         <button class = "closeButton" id = "closeWelcome" onclick = "closeWindow(welcomeScreen)">close</button>
