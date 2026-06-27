@@ -38,9 +38,6 @@ function dragElement(element) {
 }
 
 var topBar = document.querySelector("#top");
-
-
-
 var welcomeScreen = document.querySelector("#welcome");
 var notebook = document.querySelector("#notebook");
 var embedPlaylist = document.querySelector("#embedPlaylist");
@@ -57,6 +54,7 @@ function openWindow(element) {
 
 var welcomeScreenClose = document.querySelector("#closeButton");
 var welcomeScreenOpen = document.querySelector("#openWelcome");
+var notebookOpen = document.querySelector("#notebookIcon");
 
 welcomeScreenClose.addEventListener("click", function() {
   closeWindow(welcomeScreen);
@@ -64,6 +62,10 @@ welcomeScreenClose.addEventListener("click", function() {
 
 welcomeScreenOpen.addEventListener("click", function() {
   openWindow(welcomeScreen);
+});
+
+notebookOpen.addEventListener("click", function() {
+  openWindow(notebook);
 });
 
 
