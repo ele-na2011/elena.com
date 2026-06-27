@@ -8,7 +8,7 @@ setInterval(updateTime, 1000);
 
 // Make the DIV element draggable:
 dragElement(document.getElementById("welcome"));
-dragElement(document.getElementById("notebook"));
+dragElement(document.getElementById("notebookWindow"));
 dragElement(document.getElementById("embedPlaylist"));
 
 function dragElement(element) {
@@ -39,7 +39,7 @@ function dragElement(element) {
 
 var topBar = document.querySelector("#top");
 var welcomeScreen = document.querySelector("#welcome");
-var notebook = document.querySelector("#notebook");
+var notebookWindow = document.querySelector("#notebookWindow");
 var embedPlaylist = document.querySelector("#embedPlaylist");
 
 function closeWindow(element) {
@@ -52,22 +52,11 @@ function openWindow(element) {
     topBar.style.zIndex = biggestIndex + 1; // Ensure the top bar is always above the windows
 }
 
-var welcomeScreenClose = document.querySelector("#closeButton");
 var welcomeScreenOpen = document.querySelector("#openWelcome");
-var notebookOpen = document.querySelector("#notebookIcon");
-
-welcomeScreenClose.addEventListener("click", function() {
-  closeWindow(welcomeScreen);
-});
 
 welcomeScreenOpen.addEventListener("click", function() {
   openWindow(welcomeScreen);
 });
-
-notebookOpen.addEventListener("click", function() {
-  openWindow(notebook);
-});
-
 
 var selectedIcon = undefined;
 
@@ -76,12 +65,9 @@ function selectIcon(element) {
   selectedIcon = element;
 }
 
-function handleIconTap(element) {
-  if (element.classList.contains("selected")) {
-    deselectIcon(element);
-    openWindow(notebook);
-  } else {
-    selectIcon(element);
+function deselectIcon(element) {
+  if (element) {
+    element.classList.remove("selected");
   }
 }
 
@@ -103,6 +89,5 @@ function handleWindowTap(element) {
 function initializeWindow(elementName) {
   var screen = document.querySelector("#" + elementName);
   addWindowTapHandling(screen);
-  makeClosable(elementName);
   dragElement(screen);
 }
