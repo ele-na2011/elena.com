@@ -10,6 +10,7 @@ setInterval(updateTime, 1000);
 dragElement(document.getElementById("welcome"));
 dragElement(document.getElementById("notebookWindow"));
 dragElement(document.getElementById("embedPlaylistWindow"));
+dragElement(document.getElementById("resumeWindow"));
 
 function dragElement(element) {
   const handle = document.getElementById(element.id + "Handler") || element;
@@ -41,6 +42,7 @@ var topBar = document.querySelector("#top");
 var welcomeScreen = document.querySelector("#welcome");
 var notebookWindow = document.querySelector("#notebookWindow");
 var embedPlaylistWindow = document.querySelector("#embedPlaylistWindow");
+var resumeWindow = document.querySelector("#resumeWindow");
 
 function closeWindow(element) {
   element.style.display = "none";
