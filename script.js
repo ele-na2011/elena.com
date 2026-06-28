@@ -11,7 +11,7 @@ const LATITUDE = 43.46671;
 const LONGITUDE = 79.69031;
 
 // Open-Meteo API URL
-const apiUrl = `https://open-meteo.com{LATITUDE}&longitude=${LONGITUDE}&current_weather=true`;
+const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&current_weather=true`;
 
 async function fetchTemperature() {
   try {
