@@ -47,13 +47,7 @@
 
 .content {
     flex-grow:1;
-}
-
-.dropdown-content article {
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #71239e;
-    border-radius: 5px;
-    background-color: #e9cdfa;
+    background-color:#e9cdfa;
+    
 }
 
