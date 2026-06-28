@@ -22,6 +22,7 @@
 .icon {
     width: 64px;
     height: 64px;
+    align-self: center;
 }
 
 .dropdown {
@@ -48,6 +49,6 @@
 .content {
     flex-grow:1;
     background-color:#e9cdfa;
-    
+    text-align:center;
 }
 
