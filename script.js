@@ -6,6 +6,35 @@ function updateTime() {
 }
 setInterval(updateTime, 1000);
 
+// Define coordinates (Example: New York City)
+const LATITUDE = 43.46671;
+const LONGITUDE = 79.69031;
+
+// Open-Meteo API URL
+const apiUrl = `https://open-meteo.com{LATITUDE}&longitude=${LONGITUDE}&current_weather=true`;
+
+async function fetchTemperature() {
+  try {
+    // 1. Fetch data from the API
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    
+    // 2. Extract the current temperature from the JSON structure
+    const temperature = data.current_weather.temperature;
+    
+    // 3. Select your HTML element and update its content
+    document.getElementById('temperatureDisplay').innerHTML = `${temperature}°C`;
+    
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    document.getElementById('temperatureDisplay').textContent = "Error loading";
+  }
+}
+
+// Execute the function when the script loads
+fetchTemperature();
+
+
 // Make the DIV element draggable:
 dragElement(document.getElementById("welcome"));
 dragElement(document.getElementById("notebookWindow"));
