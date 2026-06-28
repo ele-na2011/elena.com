@@ -9,7 +9,7 @@ setInterval(updateTime, 1000);
 // Make the DIV element draggable:
 dragElement(document.getElementById("welcome"));
 dragElement(document.getElementById("notebookWindow"));
-dragElement(document.getElementById("embedPlaylist"));
+dragElement(document.getElementById("embedPlaylistWindow"));
 
 function dragElement(element) {
   const handle = document.getElementById(element.id + "Handler") || element;
