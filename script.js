@@ -40,7 +40,7 @@ function dragElement(element) {
 var topBar = document.querySelector("#top");
 var welcomeScreen = document.querySelector("#welcome");
 var notebookWindow = document.querySelector("#notebookWindow");
-var embedPlaylist = document.querySelector("#embedPlaylist");
+var embedPlaylistWindow = document.querySelector("#embedPlaylistWindow");
 
 function closeWindow(element) {
   element.style.display = "none";
