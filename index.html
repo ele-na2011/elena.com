@@ -37,18 +37,19 @@
               <nav>
                 <li>
                   <details class = "blog post">
-                    <summary>article 1</summary>
+                    <summary>claude is goated</summary>
                     <ul class = "content">
                       <p>
-                        this is the first article
+                        guys so we all say that AI is bad but highkey claude is goated cuz it saves me from 10 hrs a day of debugging
                       </p>
                     </ul>
                   </details>
                   <details class = "blog post">
-                    <summary>article 2</summary>
+                    <summary>je deteste le francais</summary>
                     <ul class = "content">
                       <p>
-                        this is the second article
+                        as a french immersion student, I often wonder why im even in this program. french is not only useless for my intended major but time consuming and rage inducing
+                        someone help me
                       </p>
                     </ul>
                   </details>
@@ -104,6 +105,48 @@
       <p>
         <button class = "closeButton" id = "closeWelcome" onclick = "closeWindow(welcomeScreen)">close</button>
       </p>
+    </div>
+
+    <div id = "gallery">
+      <div class = "icon" id = "galleryIcon" style = "user-select:none; cursor:move;" onclick = "initializeWindow('galleryWindow'); openWindow(galleryWindow); handleWindowTap(galleryWindow);">
+        <img src = "icons8-gallery-96.png" style = "width:64px;height:64px;" class = "selected">
+      </div>
+      <div class = "window" id = "galleryWindow" style = "display:none; flex-direction:column; text-align:left; width:50%;">
+        <p id = "galleryHandler" style = "user-select:none; cursor:move;">
+          <img src = icons8-drag-handle-48.png style = "width:24px;height:24px;">
+        </p>
+        <h1 class = "windowTitle" style = "margin:4px">
+          gallery
+        </h1> <!--title of the window-->
+        <div class = "galleryCarousel">
+          <div class = "carouselWrapper">
+            <div class = "carousel">
+              <div class = "carouselItem">
+                <img src = "https://via.placeholder.com/600x400?text=Image+1" alt = "Image 1">
+              </div>
+              <div class = "carouselItem">
+                <img src = "https://via.placeholder.com/600x400?text=Image+2" alt = "Image 2">  
+              </div>
+              <div class = "carouselItem">
+                <img src = "https://via.placeholder.com/600x400?text=Image+3" alt = "Image 3">
+              </div>
+            </div>
+
+            <div class = "carouselCaption">
+              <p>Image 1</p>
+
+              <button class = "carouselButtonPrevious" onclick = "changeSlide (-1)">&#10094</button>
+              <button class = "carouselButtonNext" onclick = "changeSlide (1)">&#10095</button>
+            </div>
+
+            <div class = "carouselControls">
+              <span class = "dotActive" onclick = "currentSlide(0)"></span>
+              <span class = "dot" onclick = "currentSlide(1)"></span>
+              <span class = "dot" onclick = "currentSlide(2)"></span>
+              <span class = "dot" onclick = "currentSlide(3)"></span>
+            </div>
+          </div>
+        </div>
     </div>
 
     <!--window for the spotify playlist-->

@@ -40,6 +40,8 @@ dragElement(document.getElementById("welcome"));
 dragElement(document.getElementById("notebookWindow"));
 dragElement(document.getElementById("embedPlaylistWindow"));
 dragElement(document.getElementById("resumeWindow"));
+dragElement(document.getElementById("galleryWindow"));
+
 
 function dragElement(element) {
   const handle = document.getElementById(element.id + "Handler") || element;
@@ -72,6 +74,7 @@ var welcomeScreen = document.querySelector("#welcome");
 var notebookWindow = document.querySelector("#notebookWindow");
 var embedPlaylistWindow = document.querySelector("#embedPlaylistWindow");
 var resumeWindow = document.querySelector("#resumeWindow");
+var galleryWindow = document.querySelector("#galleryWindow");
 
 function closeWindow(element) {
   element.style.display = "none";
@@ -122,3 +125,43 @@ function initializeWindow(elementName) {
   addWindowTapHandling(screen);
   dragElement(screen);
 }
+
+let slideIndex = 0;
+let autoSlideTimer;
+
+function changeSlide(n) {
+  showSlide(slideIndex += n);
+  resetAutoSlide ();
+}
+
+function currentSlide(n) {
+  showSlide(slideIndex = n);
+  resetAutoSlide ();
+}
+
+function showSlide(n) {
+  const slides = document.querySelectorAll(".carouselItem");
+  const dots = document.querySelectorAll(".dot");
+
+  if (n >= slides.length) {slideIndex = 0}
+  if (n < 0) {slideIndex = slides.length - 1}
+
+  const carousel = document.querySelector(".carousel");
+  carousel.style.transform = `translateX(${-slideIndex * 100}%)`;
+
+  dots.forEach(dot => dot.classList.remove("active"));
+  dots[slideIndex].classList.add("active");
+
+  const captions = ["Image 1", "Image 2", "Image 3"];
+  document.getElementById("caption").textContent = captions[slideIndex];
+}
+
+function autoSlide() {
+  changeSlide(1);
+}
+
+function resetAutoSlide() {
+  clearInterval(autoSlideTimer);
+  autoSlideTimer = setInterval(autoSlide, 5000);
+}
+
