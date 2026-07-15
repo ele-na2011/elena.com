@@ -190,9 +190,19 @@
     </div>
 
     <!--window for the spotify playlist-->
-    <div id = "embedPlaylist">
-      <div class = "window" id = "embedPlaylistWindow" style = "flex-direction:column; top:35%; left:0%;">
+    <div id = "spotifyPlaylist">
+      <div class = "icon" id = "spotifyPlaylistIcon" style = "user-select:none; cursor:move;" onclick = "initializeWindow('embedPlaylistWindow'); openWindow(embedPlaylistWindow); handleWindowTap(embedPlaylistWindow);">
+        <img src = "icons8-music-heart-96.png" style = "width:64px;height:64px;" class = "selected">
+      </div>
+      <div class = "window" id = "embedPlaylistWindow" style = "display:none; flex-direction:column; text-align:left; width:50%;">
+        <p id = "embedPlaylistHandler" style = "user-select:none; cursor:move;">
+          <img src = "icons8-drag-handle-48.png" style = "width:24px;height:24px;">
+        </p>
+        <h1 class = "windowTitle" style = "margin:4px">
+          spotify playlist
+        </h1> <!--title of the window-->
         <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1D2th3oVuAzVAab2eCA07Q?utm_source=generator&si=8227bd48d44f429b" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <button class = "closeButton" id = "closeEmbedPlaylist" onclick = "closeWindow(embedPlaylistWindow)">close</button>
       </div>
     </div>
     <script src = "./script.js"></script> <!--link to the script.js file-->
