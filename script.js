@@ -41,6 +41,7 @@ dragElement(document.getElementById("notebookWindow"));
 dragElement(document.getElementById("embedPlaylistWindow"));
 dragElement(document.getElementById("resumeWindow"));
 dragElement(document.getElementById("galleryWindow"));
+dragElement(document.getElementById("calendarWindow"));
 
 
 function dragElement(element) {
@@ -75,6 +76,7 @@ var notebookWindow = document.querySelector("#notebookWindow");
 var embedPlaylistWindow = document.querySelector("#embedPlaylistWindow");
 var resumeWindow = document.querySelector("#resumeWindow");
 var galleryWindow = document.querySelector("#galleryWindow");
+var calendarWindow = document.querySelector("#calendarWindow");
 
 function closeWindow(element) {
   element.style.display = "none";

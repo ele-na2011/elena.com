@@ -146,7 +146,27 @@
               <span class = "dot" onclick = "currentSlide(3)"></span>
             </div>
           </div>
+        <div class = "closeButton" id = "closeGallery" onclick = "closeWindow(galleryWindow)">
+          <button>close</button>
+        </div>  
         </div>
+    </div>
+
+    <div id = "calendar">
+      <div class = "icon" id = "calendarIcon" style = "user-select:none; cursor:move;" onclick = "initializeWindow('calendarWindow'); openWindow(calendarWindow); handleWindowTap(calendarWindow);">
+        <img src = "icons8-calendar-96.png" style = "width:64px;height:64px;" class = "selected">
+      </div>
+      <div class = "window" id = "calendarWindow" style = "display:none; flex-direction:column; text-align:left; width:50%;">
+        <p id = "calendarHandler" style = "user-select:none; cursor:move;">
+          <img src = "icons8-drag-handle-48.png" style = "width:24px;height:24px;">
+        </p>
+        <h1 class = "windowTitle" style = "margin:4px">
+          calendar
+        </h1> <!--title of the window-->
+        <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=America%2FToronto" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        <p>email elenaqifeiyang@gmail.com to schedule a meeting trust</p>
+        <button class = "closeButton" id = "closeCalendar" onclick = "closeWindow(calendarWindow)">close</button>
+      </div>
     </div>
 
     <!--window for the spotify playlist-->
