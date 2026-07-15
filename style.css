@@ -166,3 +166,41 @@
     font-size: 16px;
     z-index: 8;
 }
+
+.row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.row input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #71239e;
+    border-radius: 5px;
+}
+
+button { 
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color:#71239e;
+    color: #e9cdfa;
+    font-size:15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color:#cb8bf0;
+    color:#71239e;
+}
+
+#result {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #71239e;
+    border-radius: 5px;
+    background-color:#e9cdfa;
+}

@@ -169,6 +169,26 @@
       </div>
     </div>
 
+    <div id = "gradeCalculator">
+      <div class = "icon" id = "gradeCalculatorIcon" style = "user-select:none; cursor:move;" onclick = "initializeWindow('gradeCalculatorWindow'); openWindow(gradeCalculatorWindow); handleWindowTap(gradeCalculatorWindow);">
+        <img src = "icons8-grades-96.png" style = "width:64px;height:64px;" class = "selected">
+      </div>
+      <div class = "window" id = "gradeCalculatorWindow" style = "display:none; flex-direction:column; text-align:left; width:50%;">
+        <p id = "gradeCalculatorHandler" style = "user-select:none; cursor:move;">
+          <img src = "icons8-drag-handle-48.png" style = "width:24px;height:24px;">
+        </p>
+        <h1 class = "windowTitle" style = "margin:4px">
+          grade calculator
+        </h1> <!--title of the window-->
+        <div id = "rowsContainer">
+          <!-- Rows will be added here dynamically -->
+        </div>
+        <button id = "addRowButton" onclick = "addRow()">Add Row</button>
+        <p id = "finalGradeDisplay">Final Grade: 0%</p>
+        <button class = "closeButton" id = "closeGradeCalculator" onclick = "closeWindow(gradeCalculatorWindow)">close</button>
+      </div>
+    </div>
+
     <!--window for the spotify playlist-->
     <div id = "embedPlaylist">
       <div class = "window" id = "embedPlaylistWindow" style = "flex-direction:column; top:35%; left:0%;">

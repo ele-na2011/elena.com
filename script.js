@@ -167,3 +167,54 @@ function resetAutoSlide() {
   autoSlideTimer = setInterval(autoSlide, 5000);
 }
 
+const rowsContainer = document.getElementById("rowsContainer");
+const addRowButton = document.getElementById("addRowButton");
+const calculateButton = document.getElementById("calculateButton");
+const resultDisplay = document.getElementById("resultDisplay");
+
+function createRow () {
+  const row = document.createElement("div");
+  row.classList.add("row");
+
+  row.innerHTML = `
+    <input type = "number" placeholder = "Score (%) " class = "scoreInput">
+    <input type = "number" placeholder = "Weight (%) " class = "weightInput">
+    <button class = "removeRowButton">Remove</button>
+  `;
+
+  rowsContainer.appendChild(row);
+}
+
+for (let i = 0; i < 3; i++) {
+  createRow();
+}
+
+addRowButton.addEventListener("click", createRow);
+
+calculateButton.addEventListener("click", () => {
+  const scoreInputs = document.querySelectorAll(".scoreInput");
+  const weightInputs = document.querySelectorAll(".weightInput");
+
+  let totalWeightedScore = 0;
+  let totalWeight = 0;
+
+  for (let i = 0; i < scoreInputs.length; i++) {
+    const score = parseFloat(scoreInputs[i].value);
+    const weight = parseFloat(weightInputs[i].value);
+
+    if (isNan(score) || isNaN(weight)) continue;
+    
+    totalWeightedScore += score * weight;
+    totalWeight += weight;
+  }
+
+  if (totalWeight === 0) {
+    resultDisplay.textContent = "Please enter at least one valid score and weight.";
+  } else {
+    const averageScore = totalWeightedScore / totalWeight;
+    resultDisplay.textContent = `Average Score: ${averageScore.toFixed(2)}`;
+  }
+
+  const average = weightedSum/ totalWeight;
+  resultDisplay.textContent = `Average Score: ${average.toFixed(2)}`;
+});
