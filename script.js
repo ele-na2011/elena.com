@@ -169,29 +169,33 @@ function resetAutoSlide() {
 
 const rowsContainer = document.getElementById("rowsContainer");
 const addRowButton = document.getElementById("addRowButton");
-const calculateButton = document.getElementById("calculateButton");
-const resultDisplay = document.getElementById("resultDisplay");
+const finalGradeDisplay = document.getElementById("finalGradeDisplay");
 
-function createRow () {
+function createRow() {
   const row = document.createElement("div");
   row.classList.add("row");
 
   row.innerHTML = `
-    <input type = "number" placeholder = "Score (%) " class = "scoreInput">
-    <input type = "number" placeholder = "Weight (%) " class = "weightInput">
-    <button class = "removeRowButton">Remove</button>
+    <input type="number" placeholder="Score (%)" class="scoreInput">
+    <input type="number" placeholder="Weight (%)" class="weightInput">
+    <button class="removeRowButton">Remove</button>
   `;
 
   rowsContainer.appendChild(row);
+
+  // wire up remove
+  row.querySelector(".removeRowButton").addEventListener("click", () => {
+    row.remove();
+    calculateFinalGrade();
+  });
+
+  // recalc live as the user types
+  row.querySelectorAll("input").forEach(input => {
+    input.addEventListener("input", calculateFinalGrade);
+  });
 }
 
-for (let i = 0; i < 3; i++) {
-  createRow();
-}
-
-addRowButton.addEventListener("click", createRow);
-
-calculateButton.addEventListener("click", () => {
+function calculateFinalGrade() {
   const scoreInputs = document.querySelectorAll(".scoreInput");
   const weightInputs = document.querySelectorAll(".weightInput");
 
@@ -202,19 +206,24 @@ calculateButton.addEventListener("click", () => {
     const score = parseFloat(scoreInputs[i].value);
     const weight = parseFloat(weightInputs[i].value);
 
-    if (isNan(score) || isNaN(weight)) continue;
-    
+    if (isNaN(score) || isNaN(weight)) continue;
+
     totalWeightedScore += score * weight;
     totalWeight += weight;
   }
 
   if (totalWeight === 0) {
-    resultDisplay.textContent = "Please enter at least one valid score and weight.";
+    finalGradeDisplay.textContent = "Final Grade: 0%";
   } else {
-    const averageScore = totalWeightedScore / totalWeight;
-    resultDisplay.textContent = `Average Score: ${averageScore.toFixed(2)}`;
+    const average = totalWeightedScore / totalWeight;
+    finalGradeDisplay.textContent = `Final Grade: ${average.toFixed(2)}%`;
   }
+}
 
-  const average = weightedSum/ totalWeight;
-  resultDisplay.textContent = `Average Score: ${average.toFixed(2)}`;
-});
+// start with 3 rows
+for (let i = 0; i < 3; i++) {
+  createRow();
+}
+
+addRowButton.addEventListener("click", createRow);
+calculateFinalGrade();
