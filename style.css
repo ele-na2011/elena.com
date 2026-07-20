@@ -151,7 +151,7 @@
     background-color: #cb8bf0;
 }
 
-.carouselButton {
+#carouselButton {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -164,15 +164,15 @@
     z-index: 10;
 }
 
-.carouselButton:hover {
+#carouselButton:hover {
     background-color: rgba(113, 35, 158, 0.9);
 }
 
-.carouselButtonPrevious {
+#carouselButtonPrevious {
     left: 10px;
 }
 
-.carouselButtonNext {
+#carouselButtonNext {
     right: 10px;
 }
 
