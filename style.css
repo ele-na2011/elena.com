@@ -1,3 +1,8 @@
+body {
+    
+
+}
+
 .bgContainer {
     position: fixed;
     top: 0;
@@ -21,13 +26,6 @@
     cursor:zoom-out;
 }
 
-.closeButton {
-    background-color:#71239e; 
-    color:#cb8bf0; 
-    border:2px solid #71239e; 
-    border-radius:10px; 
-    padding:4px;
-}
 
 .window {
     border:2px solid #71239e; 
@@ -41,11 +39,6 @@
     flex-direction:column;
 }
 
-.icon {
-    width: 64px;
-    height: 64px;
-    align-self: center;
-}
 
 .dropdown {
     list-style:none;

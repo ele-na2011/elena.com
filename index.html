@@ -1,209 +1,25 @@
 <!DOCTYPE html>
-<html>
-
+<html lang = "en">
   <head>
-    <link rel="stylesheet" href="style.css"> <!--link to the style.css file-->
-    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+    <title>kpopOS</title>
+    <style>
+      body {
+        text-align: center;
+        align-items: center;
+        background-image: url(https://kpopisforeveryone.wordpress.com/wp-content/uploads/2023/11/venue.jpg);
+        font-family:'Courier New', Courier, monospace;
+      }
+
+    </style>
   </head>
 
-  <!--background image and stuff-->
-  <body style = "background-image:url(https://images7.alphacoders.com/134/thumb-1920-1342753.png); background-size:cover; background-position:center; height:100vh; font-family:fantasy; text-align:center; color:#71239e">
-    <!--top bar with the name of the OS and the time-->
-    <div id = "top" style = "display:flex; justify-content:space-between; position:absolute; background-color:#cb8bf0; border:2px solid #71239e; border-radius:10px;">
-      <p id = "openWelcome"style = "margin-left:16px; padding:4px;">
-        elena.zip
-      </p>
-      <p id = "timeElement" style = "margin-right:16px; padding:4px;">
-        [insert time here]
-      </p>
-      <div id = "weather" style = "margin-right:16px; padding:4px;">
-        <p id = "temperatureDisplay">--°C @ Oakville, Ontario</p>
-      </div>
+  <body>
+    <!--intro screen and information-->
+    <div style = "background-color:#646464; color:aliceblue; margin-top: 15%; margin-left: 15%; margin-right: 15%; margin-bottom: 15%; padding-right: 5%; padding-left: 5%; padding-bottom: 5%; padding-top: 5%; border-color:aliceblue; border-radius:10px; border-width:2px;">
+      <h1>Welcome to kpopOS</h1>
+      <p>Hi there! Welcome to KpopOS, your fully customizable operating system. Set backgrounds, app icons, and more to your favorite Kpop Groups and enjoy a productive working space!</p>
+      <img href = "intro-pic.jpg">
+      <button><a href = "home.html">Click Here to Enter</a></button>
     </div>
-
-    <!--window for the notebook app-->
-    <div id = "notebook" style = "padding-top:64px; padding-left:16px;">
-      <div class="icon" id="notebookIcon" style="user-select:none; cursor:move;" onclick="initializeWindow('notebookWindow'); openWindow(notebookWindow); handleWindowTap(notebookWindow);">
-        <img src = "icons8-pen-96.png" style = "width:64px;height:64px;" class = "selected">
-      </div>
-      <div class = "window" id = "notebookWindow" style = "display:none; flex-direction:column; text-align:left; width:50%;">
-        <p id = "notebookHandler" style = "user-select:none; cursor:move;">
-          <img src = icons8-drag-handle-48.png style = "width:24px;height:24px;">
-        </p>
-        <h1 class = "windowTitle" style = "margin:4px">
-          notebook
-        </h1> <!--title of the window-->
-            <div>
-              <nav>
-                <li>
-                  <details class = "blog post">
-                    <summary>claude is goated</summary>
-                    <ul class = "content">
-                      <p>
-                        guys so we all say that AI is bad but highkey claude is goated cuz it saves me from 10 hrs a day of debugging
-                      </p>
-                    </ul>
-                  </details>
-                  <details class = "blog post">
-                    <summary>je deteste le francais</summary>
-                    <ul class = "content">
-                      <p>
-                        as a french immersion student, I often wonder why im even in this program. french is not only useless for my intended major but time consuming and rage inducing
-                        someone help me
-                      </p>
-                    </ul>
-                  </details>
-                </li>
-              </nav>
-            </div>
-        <p>
-          <button class = "closeButton" id = "closeNotebook" onclick = "closeWindow(notebookWindow)">close</button>
-        </p>
-      </div>
-    </div>
-
-    <!--resume-->
-    <div id = "resume" style = "padding-top:16px; padding-left:16px;">
-      <div class = "icon" id = "resumeIcon" style = "user-select:none; cursor:move;" onclick = "initializeWindow('resumeWindow'); openWindow(resumeWindow); handleWindowTap(resumeWindow);">
-        <img src = "icons8-notebook-96.png" style = "width:64px;height:64px;" class = "selected">
-      </div>
-      <div class = "window" id = "resumeWindow" style = "display:none; flex-direction:column; text-align:left; width:50%;">
-        <p id = "resumeHandler" style = "user-select:none; cursor:move;">
-          <img src = icons8-drag-handle-48.png style = "width:24px;height:24px;">
-        </p>
-        <h1 class = "windowTitle" style = "margin:4px">
-          resume
-        </h1> <!--title of the window-->
-        <iframe src="https://docs.google.com/document/d/e/2PACX-1vT8Yt3EqbN9IkWUCdkj-6zYLS8MrlQFuXpHAoghlUVeLo1bf4emjoSHz5oet5eutECSKoxVXtXfJ10p/pub?embedded=true"></iframe>
-        <button class = "closeButton" id = "closeResume" onclick = "closeWindow(resumeWindow)">close</button>
-        </p>
-      </div>
-    </div>
-
-    <!--window for the welcome screen-->
-    <div class = "window"id = "welcome" style = "top:20%; left:45%;">
-      <p id = "welcomeHandler" style = "user-select:none; cursor:move;">
-        <img src = icons8-drag-handle-48.png style = "width:24px;height:24px;">
-      </p>
-      <h1 class = "windowTitle" style = "margin:4px">
-        welcome to my OS
-      </h1> <!--title of the OS-->
-      <p>
-        hello fellow human being
-      </p>
-      <img style = "width:64px;height:64px;border-radius:50%;object-fit:cover; align-self:center;" 
-      src = "https://i.pinimg.com/736x/cb/df/31/cbdf316479bbc75ee1ed645ba9353ebe.jpg">
-      <p>
-        imagine not knowing the most tuff and cool person in the world... tsk tsk
-      </p>
-      <p>
-        at least you're in the right spot ig...
-      </p>
-      <p>
-        Instagram: <a href = "https://www.instagram.com/ele.naaa.y/?hl=en">@ele.naaa.y</a>
-      </p>
-      <p>
-        <button class = "closeButton" id = "closeWelcome" onclick = "closeWindow(welcomeScreen)">close</button>
-      </p>
-    </div>
-
-    <div id = "gallery">
-      <div class = "icon" id = "galleryIcon" style = "user-select:none; cursor:move;" onclick = "initializeWindow('galleryWindow'); openWindow(galleryWindow); handleWindowTap(galleryWindow);">
-        <img src = "icons8-gallery-96.png" style = "width:64px;height:64px;" class = "selected">
-      </div>
-      <div class = "window" id = "galleryWindow" style = "display:none; flex-direction:column; text-align:left; width:50%;">
-        <p id = "galleryHandler" style = "user-select:none; cursor:move;">
-          <img src = icons8-drag-handle-48.png style = "width:24px;height:24px;">
-        </p>
-        <h1 class = "windowTitle" style = "margin:4px">
-          gallery
-        </h1> <!--title of the window-->
-        <div class = "galleryCarousel">
-          <div class = "carouselWrapper">
-            <div class = "carousel">
-              <div class = "carouselItem">
-                <img src = "https://via.placeholder.com/600x400?text=Image+1" alt = "Image 1">
-              </div>
-              <div class = "carouselItem">
-                <img src = "https://via.placeholder.com/600x400?text=Image+2" alt = "Image 2">  
-              </div>
-              <div class = "carouselItem">
-                <img src = "https://via.placeholder.com/600x400?text=Image+3" alt = "Image 3">
-              </div>
-            </div>
-
-            <div class = "carouselCaption">
-              <button id = "carouselButtonPrevious" onclick = "changeSlide (-1)" class = "carouselButton">&#10094</button>
-              <span class = "imageCaption">Image 1</span>
-              <button id = "carouselButtonNext" onclick = "changeSlide (1)" class = "carouselButton">&#10095</button>
-            </div>
-
-            <div class = "carouselControls">
-              <span class = "dotActive" onclick = "currentSlide(0)"></span>
-              <span class = "dot" onclick = "currentSlide(1)"></span>
-              <span class = "dot" onclick = "currentSlide(2)"></span>
-              <span class = "dot" onclick = "currentSlide(3)"></span>
-            </div>
-          </div>
-        <div class = "closeButton" id = "closeGallery" onclick = "closeWindow(galleryWindow)">
-          <button>close</button>
-        </div>  
-        </div>
-    </div>
-
-    <div id = "calendar">
-      <div class = "icon" id = "calendarIcon" style = "user-select:none; cursor:move;" onclick = "initializeWindow('calendarWindow'); openWindow(calendarWindow); handleWindowTap(calendarWindow);">
-        <img src = "icons8-calendar-96.png" style = "width:64px;height:64px;" class = "selected">
-      </div>
-      <div class = "window" id = "calendarWindow" style = "display:none; flex-direction:column; text-align:left; width:50%;">
-        <p id = "calendarHandler" style = "user-select:none; cursor:move;">
-          <img src = "icons8-drag-handle-48.png" style = "width:24px;height:24px;">
-        </p>
-        <h1 class = "windowTitle" style = "margin:4px">
-          calendar
-        </h1> <!--title of the window-->
-        <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=America%2FToronto" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-        <p>email elenaqifeiyang@gmail.com to schedule a meeting trust</p>
-        <button class = "closeButton" id = "closeCalendar" onclick = "closeWindow(calendarWindow)">close</button>
-      </div>
-    </div>
-
-    <div id = "gradeCalculator">
-      <div class = "icon" id = "gradeCalculatorIcon" style = "user-select:none; cursor:move;" onclick = "initializeWindow('gradeCalculatorWindow'); openWindow(gradeCalculatorWindow); handleWindowTap(gradeCalculatorWindow);">
-        <img src = "icons8-grades-96.png" style = "width:64px;height:64px;" class = "selected">
-      </div>
-      <div class = "window" id = "gradeCalculatorWindow" style = "display:none; flex-direction:column; text-align:left; width:50%;">
-        <p id = "gradeCalculatorHandler" style = "user-select:none; cursor:move;">
-          <img src = "icons8-drag-handle-48.png" style = "width:24px;height:24px;">
-        </p>
-        <h1 class = "windowTitle" style = "margin:4px">
-          grade calculator
-        </h1> <!--title of the window-->
-        <div id = "rowsContainer">
-          <!-- Rows will be added here dynamically -->
-        </div>
-        <button id = "addRowButton" onclick = "addRow()">Add Row</button>
-        <p id = "finalGradeDisplay">Final Grade: 0%</p>
-        <button class = "closeButton" id = "closeGradeCalculator" onclick = "closeWindow(gradeCalculatorWindow)">close</button>
-      </div>
-    </div>
-
-    <!--window for the spotify playlist-->
-    <div id = "spotifyPlaylist">
-      <div class = "icon" id = "spotifyPlaylistIcon" style = "user-select:none; cursor:move;" onclick = "initializeWindow('embedPlaylistWindow'); openWindow(embedPlaylistWindow); handleWindowTap(embedPlaylistWindow);">
-        <img src = "icons8-music-heart-96.png" style = "width:64px;height:64px;" class = "selected">
-      </div>
-      <div class = "window" id = "embedPlaylistWindow" style = "display:none; flex-direction:column; text-align:left; width:50%;">
-        <p id = "embedPlaylistHandler" style = "user-select:none; cursor:move;">
-          <img src = "icons8-drag-handle-48.png" style = "width:24px;height:24px;">
-        </p>
-        <h1 class = "windowTitle" style = "margin:4px">
-          spotify playlist
-        </h1> <!--title of the window-->
-        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1D2th3oVuAzVAab2eCA07Q?utm_source=generator&si=8227bd48d44f429b" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        <button class = "closeButton" id = "closeEmbedPlaylist" onclick = "closeWindow(embedPlaylistWindow)">close</button>
-      </div>
-    </div>
-    <script src = "./script.js"></script> <!--link to the script.js file-->
   </body>
 </html>
