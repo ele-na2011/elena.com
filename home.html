@@ -1,91 +1,112 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
   <head>
-    <link rel="stylesheet" href="style.css"> <!--link to the style.css file-->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kpopOS</title>
+    <link rel="stylesheet" href="style.css" />
     <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
   </head>
 
-  <!--background image and stuff-->
-  <body style = "background-image:url(https://images7.alphacoders.com/134/thumb-1920-1342753.png); background-size:cover; background-position:center; height:100vh; font-family:fantasy; text-align:center; color:#71239e">
-   
-
-    
-    
-    <div id = "gallery">
-      <div class = "icon" id = "galleryIcon" style = "user-select:none; cursor:move;" onclick = "initializeWindow('galleryWindow'); openWindow(galleryWindow); handleWindowTap(galleryWindow);">
-        <img src = "icons8-gallery-96.png" style = "width:64px;height:64px;" class = "selected">
+  <body class="desktop">
+    <div id="top" class="topBar">
+      <div class="brand">kpopOS</div>
+      <div class="status">
+        <span id="timeElement">[insert time here]</span>
       </div>
-      <div class = "window" id = "galleryWindow" style = "display:none; flex-direction:column; text-align:left; width:50%;">
-        <p id = "galleryHandler" style = "user-select:none; cursor:move;">
-          <img src = icons8-drag-handle-48.png style = "width:24px;height:24px;">
-        </p>
-        <h1 class = "windowTitle" style = "margin:4px">
-          gallery
-        </h1> <!--title of the window-->
-        <div class = "galleryCarousel">
-          <div class = "carouselWrapper">
-            <div class = "carousel">
-              <div class = "carouselItem">
-                <img src = "https://via.placeholder.com/600x400?text=Image+1" alt = "Image 1">
-              </div>
-              <div class = "carouselItem">
-                <img src = "https://via.placeholder.com/600x400?text=Image+2" alt = "Image 2">  
-              </div>
-              <div class = "carouselItem">
-                <img src = "https://via.placeholder.com/600x400?text=Image+3" alt = "Image 3">
-              </div>
-            </div>
+    </div>
 
-            <div class = "carouselCaption">
-              <button id = "carouselButtonPrevious" onclick = "changeSlide (-1)" class = "carouselButton">&#10094</button>
-              <span class = "imageCaption">Image 1</span>
-              <button id = "carouselButtonNext" onclick = "changeSlide (1)" class = "carouselButton">&#10095</button>
-            </div>
+    <div class="controls">
+      <label for="imageUpload">Choose Background Image:</label>
+      <input type="file" id="imageUpload" accept="image/*" />
+      <button id="clearBg" type="button">Reset Background</button>
+    </div>
 
-            <div class = "carouselControls">
-              <span class = "dotActive" onclick = "currentSlide(0)"></span>
-              <span class = "dot" onclick = "currentSlide(1)"></span>
-              <span class = "dot" onclick = "currentSlide(2)"></span>
-              <span class = "dot" onclick = "currentSlide(3)"></span>
+    <div class="desktop-grid">
+      <div id="gallery" class="app-launcher">
+        <div class="icon" id="galleryIcon" onclick="initializeWindow('galleryWindow'); openWindow(galleryWindow); handleWindowTap(galleryWindow);">
+          <img src="icons8-gallery-96.png" alt="Gallery" class="selected" />
+        </div>
+
+        <div class="window" id="galleryWindow" style="display:none;">
+          <p id="galleryHandler" class="windowHandle">
+            <img src="icons8-drag-handle-48.png" alt="Drag handle" />
+          </p>
+          <h1 class="windowTitle">gallery</h1>
+
+          <div class="galleryCarousel">
+            <div class="carouselWrapper">
+              <div class="carousel">
+                <div class="carouselItem">
+                  <img src="https://via.placeholder.com/600x400?text=Image+1" alt="Image 1" />
+                </div>
+                <div class="carouselItem">
+                  <img src="https://via.placeholder.com/600x400?text=Image+2" alt="Image 2" />
+                </div>
+                <div class="carouselItem">
+                  <img src="https://via.placeholder.com/600x400?text=Image+3" alt="Image 3" />
+                </div>
+              </div>
+
+              <div class="carouselCaption">
+                <button id="carouselButtonPrevious" type="button" onclick="changeSlide(-1)" class="carouselButton">&#10094;</button>
+                <span class="imageCaption">Image 1</span>
+                <button id="carouselButtonNext" type="button" onclick="changeSlide(1)" class="carouselButton">&#10095;</button>
+              </div>
+
+              <div class="carouselControls">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+              </div>
             </div>
           </div>
-        <div class = "closeButton" id = "closeGallery" onclick = "closeWindow(galleryWindow)">
-          <button>close</button>
-        </div>  
+
+          <div class="closeButton" id="closeGallery" onclick="closeWindow(galleryWindow)">
+            <button type="button">close</button>
+          </div>
         </div>
+      </div>
+
+      <div id="spotifyPlaylist" class="app-launcher">
+        <div class="icon" id="spotifyPlaylistIcon" onclick="initializeWindow('embedPlaylistWindow'); openWindow(embedPlaylistWindow); handleWindowTap(embedPlaylistWindow);">
+          <img src="icons8-music-heart-96.png" alt="Spotify playlist" class="selected" />
+        </div>
+
+        <div class="window" id="embedPlaylistWindow" style="display:none;">
+          <p id="embedPlaylistHandler" class="windowHandle">
+            <img src="icons8-drag-handle-48.png" alt="Drag handle" />
+          </p>
+          <h1 class="windowTitle">spotify playlist</h1>
+          <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/playlist/1D2th3oVuAzVAab2eCA07Q?utm_source=generator&si=8227bd48d44f429b" width="100%" height="352" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          <button class="closeButton" id="closeEmbedPlaylist" type="button" onclick="closeWindow(embedPlaylistWindow)">close</button>
+        </div>
+      </div>
+
+      <div id="chromeBrowser" class="app-launcher">
+        <div class="icon" id="chromeBrowserIcon" onclick="initializeWindow('chromeBrowserWindow'); openWindow(chromeBrowserWindow); handleWindowTap(chromeBrowserWindow);">
+          <img src="" alt="Browser" class="selected" />
+        </div>
+
+        <div class="window" id="chromeBrowserWindow" style="display:none;">
+          <p id="chromeBrowserHandler" class="windowHandle">
+            <img src="icons8-drag-handle-48.png" alt="Drag handle" />
+          </p>
+          <h1 class="windowTitle">chrome browser</h1>
+          <iframe src="https://www.google.com/" width="100%" height="400"></iframe>
+          <div class="closeButton" id="closeChromeBrowser" onclick="closeWindow(chromeBrowserWindow)">
+            <button type="button">close</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!--window for the spotify playlist-->
-    <div id = "spotifyPlaylist">
-      <div class = "icon" id = "spotifyPlaylistIcon" style = "user-select:none; cursor:move;" onclick = "initializeWindow('embedPlaylistWindow'); openWindow(embedPlaylistWindow); handleWindowTap(embedPlaylistWindow);">
-        <img src = "icons8-music-heart-96.png" style = "width:64px;height:64px;" class = "selected">
+    <footer class="system-bar">
+      <div id="weather">
+        <p id="temperatureDisplay">--°C @ Oakville, Ontario</p>
       </div>
-      <div class = "window" id = "embedPlaylistWindow" style = "display:none; flex-direction:column; text-align:left; width:50%;">
-        <p id = "embedPlaylistHandler" style = "user-select:none; cursor:move;">
-          <img src = "icons8-drag-handle-48.png" style = "width:24px;height:24px;">
-        </p>
-        <h1 class = "windowTitle" style = "margin:4px">
-          spotify playlist
-        </h1> <!--title of the window-->
-        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1D2th3oVuAzVAab2eCA07Q?utm_source=generator&si=8227bd48d44f429b" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        <button class = "closeButton" id = "closeEmbedPlaylist" onclick = "closeWindow(embedPlaylistWindow)">close</button>
-      </div>
-    </div>
-     <!--top bar with the name of the OS and the time-->
-    <div id="top" style = "position:absolute;"
-      <p id = "timeElement" style = "margin-right:16px; padding:4px;">
-        [insert time here]
-      </p>
-      <div id = "weather" style = "margin-right:16px; padding:4px;">
-        <p id = "temperatureDisplay">--°C @ Oakville, Ontario</p>
-      </div>
-      <div class="controls">
-        <label for="imageUpload">Choose Background Image:</label>
-        <input type="file" id="imageUpload" accept="image/*">
-        <button id="clearBg">Reset Background</button>
-</div>
-    </div>
-    <script src = "./script.js"></script> <!--link to the script.js file-->
+    </footer>
+
+    <script src="./script.js"></script>
   </body>
 </html>

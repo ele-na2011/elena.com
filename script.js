@@ -36,13 +36,10 @@ fetchTemperature();
 
 
 // Make the DIV element draggable:
-dragElement(document.getElementById("welcome"));
-dragElement(document.getElementById("notebookWindow"));
-dragElement(document.getElementById("embedPlaylistWindow"));
-dragElement(document.getElementById("resumeWindow"));
-dragElement(document.getElementById("galleryWindow"));
-dragElement(document.getElementById("calendarWindow"));
-
+["welcome", "notebookWindow", "embedPlaylistWindow", "resumeWindow", "galleryWindow", "calendarWindow"].forEach((id) => {
+  const element = document.getElementById(id);
+  if (element) dragElement(element);
+});
 
 function dragElement(element) {
   const handle = document.getElementById(element.id + "Handler") || element;
@@ -85,14 +82,16 @@ function openWindow(element) {
     element.style.display = "flex";
     biggestIndex++;
     element.style.zIndex = biggestIndex;
-    topBar.style.zIndex = biggestIndex + 1; // Ensure the top bar is always above the windows
+    if (topBar) topBar.style.zIndex = biggestIndex + 1; // Ensure the top bar is always above the windows
 }
 
 var welcomeScreenOpen = document.querySelector("#openWelcome");
 
-welcomeScreenOpen.addEventListener("click", function() {
-  openWindow(welcomeScreen);
-});
+if (welcomeScreenOpen) {
+  welcomeScreenOpen.addEventListener("click", function() {
+    openWindow(welcomeScreen);
+  });
+}
 
 var selectedIcon = undefined;
 
@@ -145,17 +144,25 @@ function showSlide(n) {
   const slides = document.querySelectorAll(".carouselItem");
   const dots = document.querySelectorAll(".dot");
 
+  if (slides.length === 0) return;
   if (n >= slides.length) {slideIndex = 0}
   if (n < 0) {slideIndex = slides.length - 1}
 
   const carousel = document.querySelector(".carousel");
-  carousel.style.transform = `translateX(${-slideIndex * 100}%)`;
+  if (carousel) {
+    carousel.style.transform = `translateX(${-slideIndex * 100}%)`;
+  }
 
   dots.forEach(dot => dot.classList.remove("active"));
-  dots[slideIndex].classList.add("active");
+  if (dots[slideIndex]) {
+    dots[slideIndex].classList.add("active");
+  }
 
   const captions = ["Image 1", "Image 2", "Image 3"];
-  document.getElementById("caption").textContent = captions[slideIndex];
+  const captionElement = document.querySelector(".imageCaption");
+  if (captionElement) {
+    captionElement.textContent = captions[slideIndex] || "Image";
+  }
 }
 
 function autoSlide() {
@@ -171,59 +178,58 @@ const rowsContainer = document.getElementById("rowsContainer");
 const addRowButton = document.getElementById("addRowButton");
 const finalGradeDisplay = document.getElementById("finalGradeDisplay");
 
-function createRow() {
-  const row = document.createElement("div");
-  row.classList.add("row");
+if (rowsContainer && addRowButton && finalGradeDisplay) {
+  function createRow() {
+    const row = document.createElement("div");
+    row.classList.add("row");
 
-  row.innerHTML = `
-    <input type="number" placeholder="Score (%)" class="scoreInput">
-    <input type="number" placeholder="Weight (%)" class="weightInput">
-    <button class="removeRowButton">Remove</button>
-  `;
+    row.innerHTML = `
+      <input type="number" placeholder="Score (%)" class="scoreInput">
+      <input type="number" placeholder="Weight (%)" class="weightInput">
+      <button class="removeRowButton">Remove</button>
+    `;
 
-  rowsContainer.appendChild(row);
+    rowsContainer.appendChild(row);
 
-  // wire up remove
-  row.querySelector(".removeRowButton").addEventListener("click", () => {
-    row.remove();
-    calculateFinalGrade();
-  });
+    row.querySelector(".removeRowButton").addEventListener("click", () => {
+      row.remove();
+      calculateFinalGrade();
+    });
 
-  // recalc live as the user types
-  row.querySelectorAll("input").forEach(input => {
-    input.addEventListener("input", calculateFinalGrade);
-  });
-}
-
-function calculateFinalGrade() {
-  const scoreInputs = document.querySelectorAll(".scoreInput");
-  const weightInputs = document.querySelectorAll(".weightInput");
-
-  let totalWeightedScore = 0;
-  let totalWeight = 0;
-
-  for (let i = 0; i < scoreInputs.length; i++) {
-    const score = parseFloat(scoreInputs[i].value);
-    const weight = parseFloat(weightInputs[i].value);
-
-    if (isNaN(score) || isNaN(weight)) continue;
-
-    totalWeightedScore += score * weight;
-    totalWeight += weight;
+    row.querySelectorAll("input").forEach(input => {
+      input.addEventListener("input", calculateFinalGrade);
+    });
   }
 
-  if (totalWeight === 0) {
-    finalGradeDisplay.textContent = "Final Grade: 0%";
-  } else {
-    const average = totalWeightedScore / totalWeight;
-    finalGradeDisplay.textContent = `Final Grade: ${average.toFixed(2)}%`;
+  function calculateFinalGrade() {
+    const scoreInputs = document.querySelectorAll(".scoreInput");
+    const weightInputs = document.querySelectorAll(".weightInput");
+
+    let totalWeightedScore = 0;
+    let totalWeight = 0;
+
+    for (let i = 0; i < scoreInputs.length; i++) {
+      const score = parseFloat(scoreInputs[i].value);
+      const weight = parseFloat(weightInputs[i].value);
+
+      if (isNaN(score) || isNaN(weight)) continue;
+
+      totalWeightedScore += score * weight;
+      totalWeight += weight;
+    }
+
+    if (totalWeight === 0) {
+      finalGradeDisplay.textContent = "Final Grade: 0%";
+    } else {
+      const average = totalWeightedScore / totalWeight;
+      finalGradeDisplay.textContent = `Final Grade: ${average.toFixed(2)}%`;
+    }
   }
-}
 
-// start with 3 rows
-for (let i = 0; i < 3; i++) {
-  createRow();
-}
+  for (let i = 0; i < 3; i++) {
+    createRow();
+  }
 
-addRowButton.addEventListener("click", createRow);
-calculateFinalGrade();
+  addRowButton.addEventListener("click", createRow);
+  calculateFinalGrade();
+}
