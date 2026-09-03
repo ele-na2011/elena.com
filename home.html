@@ -3,30 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>kpopOS</title>
+    <title>mythicalOS</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
   </head>
 
-  <body class="desktop">
-    <div id="top" class="topBar">
-      <div class="brand">kpopOS</div>
-      <div class="status">
-        <span id="timeElement">[insert time here]</span>
-      </div>
-    </div>
+  
 
-    <div class="controls">
-      <label for="imageUpload">Choose Background Image:</label>
-      <input type="file" id="imageUpload" accept="image/*" />
-      <button id="clearBg" type="button">Reset Background</button>
-    </div>
+   
 
     <div class="desktop-grid">
+      <div id="notebook" class="app-launcher">
+        <button class="icon" id="notebookIcon" type="button" aria-label="Open Notebook" onclick="initializeWindow('notebookWindow'); openWindow(notebookWindow); handleWindowTap(notebookWindow);"><span>NB</span></button>
+        <p class="iconCaption">Notebook</p>
+        <div class="window notebook-window" id="notebookWindow" style="display:none;">
+          <p id="notebookWindowHandler" class="windowHandle"><img src="icons8-drag-handle-48.png" alt="Drag handle" /></p>
+          <div class="notebook-heading"><div><p class="eyebrow">workspace</p><h1 class="windowTitle">Notebook</h1></div><span class="save-state" id="notebookSaveState">saved locally</span></div>
+          <div class="notebook-toolbar"><button type="button" id="addMarkdownCell">+ Markdown</button><button type="button" id="addCodeCell">+ Code</button><button type="button" id="runAllCells">Run all</button><button type="button" id="exportNotebook">Export JSON</button></div>
+          <div id="notebookCells" class="notebook-cells"></div>
+          <button class="closeButton notebook-close" id="closeNotebook" type="button" onclick="closeWindow(notebookWindow)">close</button>
+        </div>
+      </div>
+
       <div id="gallery" class="app-launcher">
         <div class="icon" id="galleryIcon" onclick="initializeWindow('galleryWindow'); openWindow(galleryWindow); handleWindowTap(galleryWindow);">
           <img src="icons8-gallery-96.png" alt="Gallery" class="selected" />
         </div>
+        <p class="iconCaption">Gallery</p>
 
         <div class="window" id="galleryWindow" style="display:none;">
           <p id="galleryHandler" class="windowHandle">
@@ -72,6 +75,7 @@
         <div class="icon" id="spotifyPlaylistIcon" onclick="initializeWindow('embedPlaylistWindow'); openWindow(embedPlaylistWindow); handleWindowTap(embedPlaylistWindow);">
           <img src="icons8-music-heart-96.png" alt="Spotify playlist" class="selected" />
         </div>
+        <p class="iconCaption">Spotify playlist</p>
 
         <div class="window" id="embedPlaylistWindow" style="display:none;">
           <p id="embedPlaylistHandler" class="windowHandle">
@@ -83,29 +87,67 @@
         </div>
       </div>
 
-      <div id="chromeBrowser" class="app-launcher">
-        <div class="icon" id="chromeBrowserIcon" onclick="initializeWindow('chromeBrowserWindow'); openWindow(chromeBrowserWindow); handleWindowTap(chromeBrowserWindow);">
-          <img src="" alt="Browser" class="selected" />
-        </div>
+    </div>
 
-        <div class="window" id="chromeBrowserWindow" style="display:none;">
-          <p id="chromeBrowserHandler" class="windowHandle">
-            <img src="icons8-drag-handle-48.png" alt="Drag handle" />
-          </p>
-          <h1 class="windowTitle">chrome browser</h1>
-          <iframe src="https://www.google.com/" width="100%" height="400"></iframe>
-          <div class="closeButton" id="closeChromeBrowser" onclick="closeWindow(chromeBrowserWindow)">
-            <button type="button">close</button>
-          </div>
+    <div class="outside-view" id="outsideView" aria-hidden="true">
+      <div class="outside-glass"></div>
+      <div class="window-frame frame-top"></div>
+      <div class="window-frame frame-bottom"></div>
+      <div class="window-frame frame-left"></div>
+      <div class="window-frame frame-right"></div>
+    </div>
+
+    <div id="gradeCalculator" class="app-launcher">
+      <div class="icon" id="gradeCalculatorIcon" onclick="initializeWindow('gradeCalculatorWindow'); openWindow(gradeCalculatorWindow); handleWindowTap(gradeCalculatorWindow);">
+        <img src="icons8-calculator-96.png" alt="Grade Calculator" class="selected" />
+      </div>
+      <p class="iconCaption">Grade Calculator</p>
+
+      <div class="window" id="gradeCalculatorWindow" style="display:none;">
+        <p id="gradeCalculatorHandler" class="windowHandle">
+          <img src="icons8-drag-handle-48.png" alt="Drag handle" />
+        </p>
+        <h1 class="windowTitle">grade calculator</h1>
+        <div class="gradeCalculatorContent">
+          <p class="grade-help">Add each assignment's grade and how much it counts toward your final grade.</p>
+          <div class="grade-table-heading"><span>Grade (%)</span><span>Weight (%)</span><span></span></div>
+          <div id="rowsContainer" class="grade-rows"></div>
+          <div class="grade-actions"><button id="addRowButton" type="button">+ Add assignment</button><button id="calculateButton" type="button">Calculate average</button></div>
+          <p id="result" class="grade-result">Enter your assignments to begin.</p>
         </div>
+        <button class="closeButton" id="closeGradeCalculator" type="button" onclick="closeWindow(gradeCalculatorWindow)">close</button>
       </div>
     </div>
 
     <footer class="system-bar">
-      <div id="weather">
-        <p id="temperatureDisplay">--°C @ Oakville, Ontario</p>
+      <div class="brand">mythicalOS</div>
+
+      <form action="https://google.com" method="get" target="_blank" class = "google-search">
+    <input type="text" name="q" placeholder="Search Google..." required>
+    <button type="submit">Search</button>
+      </form>
+
+      <div id = "toolbar-links" class="links">
+        <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer" class = "toolbar-link"><img src = "Gmail_Logo_512px.webp" alt="Gmail" /></a>
+      </div>
+
+      <div class="system-status">
+        <div class="status" id="timeToggle" role="button" tabindex="0" aria-expanded="false">
+          <span id="timeElement">[insert time here]</span>
+        </div>
+        <div class="weather-card-wrap">
+          <section class="weather-card" id="weatherCard" aria-label="Weather details" hidden>
+            <div class="weather-card-heading"><div><p class="eyebrow">right now</p><div class="weather-current"><span class="weather-symbol" id="weatherSymbol" aria-hidden="true">☁</span><strong id="temperatureDisplay">--°C</strong></div><h2 id="weatherDescription">Loading weather</h2></div><strong id="weatherHighLow">--° / --°</strong></div>
+            <div class="weather-metrics"><span>Feels like <strong id="feelsLikeDisplay">--°C</strong></span><span>Wind <strong id="windDisplay">-- km/h</strong></span><span>Humidity <strong id="humidityDisplay">--%</strong></span></div>
+            <div class="forecast-list" id="forecastList"></div>
+            <p class="weather-updated" id="weatherUpdated">Updating...</p>
+              <button class="outside-toggle" id="outsideIcon" type="button">open window</button>
+          </section>
+        </div>
       </div>
     </footer>
+
+    <button class="outside-close" id="outsideClose" type="button">return inside</button>
 
     <script src="./script.js"></script>
   </body>

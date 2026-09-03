@@ -1,42 +1,96 @@
 //update time every second
 function updateTime() {
-    var currentTime = new Date().toLocaleString();
-    var timeText = document.querySelector("#timeElement");
-    timeText.innerHTML = currentTime;
+    const now = new Date();
+    const dateText = document.querySelector("#dateElement");
+    const timeText = document.querySelector("#timeElement");
+
+    const date = now.toLocaleDateString(undefined, {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+    });
+
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+
+    if (dateText) dateText.textContent = date;
+    if (timeText) timeText.textContent = `${hours}:${minutes}`;
 }
+
 setInterval(updateTime, 1000);
+updateTime();
+
+const timeToggle = document.querySelector("#timeToggle");
+const systemStatus = document.querySelector(".system-status");
+
+const weatherCard = document.querySelector("#weatherCard");
+
+function toggleWeatherCard() {
+  const isOpen = !weatherCard.hidden;
+  weatherCard.hidden = isOpen;
+  if (timeToggle) timeToggle.setAttribute("aria-expanded", String(!isOpen));
+}
+
+function toggleTemperature() {
+  toggleWeatherCard();
+}
+
+if (timeToggle && systemStatus) {
+  timeToggle.addEventListener("click", toggleTemperature);
+  timeToggle.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      toggleTemperature();
+    } else if (event.key === "Escape") {
+      weatherCard.hidden = true;
+      timeToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+}
 
 // Define coordinates (Example: New York City)
 const LATITUDE = 43.46671;
 const LONGITUDE = 79.69031;
 
 // Open-Meteo API URL
-const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&current_weather=true`;
+const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&forecast_days=4&timezone=auto`;
+
+const weatherDescriptions = { 0: "Clear skies", 1: "Mostly clear", 2: "Partly cloudy", 3: "Overcast", 45: "Foggy", 48: "Rime fog", 51: "Light drizzle", 53: "Drizzle", 61: "Light rain", 63: "Rain", 65: "Heavy rain", 71: "Light snow", 73: "Snow", 75: "Heavy snow", 80: "Rain showers", 81: "Rain showers", 82: "Heavy showers", 95: "Thunderstorms" };
 
 async function fetchTemperature() {
   try {
     // 1. Fetch data from the API
     const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error(`Weather request failed: ${response.status}`);
     const data = await response.json();
     
     // 2. Extract the current temperature from the JSON structure
-    const temperature = data.current_weather.temperature;
-    
-    // 3. Select your HTML element and update its content
-    document.getElementById('temperatureDisplay').innerHTML = `${temperature}°C`;
+    const current = data.current;
+    document.getElementById('temperatureDisplay').textContent = `${Math.round(current.temperature_2m)}°C`;
+    document.getElementById('feelsLikeDisplay').textContent = `${Math.round(current.apparent_temperature)}°C`;
+    document.getElementById('windDisplay').textContent = `${Math.round(current.wind_speed_10m)} km/h`;
+    document.getElementById('humidityDisplay').textContent = `${current.relative_humidity_2m}%`;
+    document.getElementById('weatherDescription').textContent = weatherDescriptions[current.weather_code] || "Changing skies";
+    document.getElementById('weatherHighLow').textContent = `${Math.round(data.daily.temperature_2m_max[0])}° / ${Math.round(data.daily.temperature_2m_min[0])}°`;
+    document.getElementById('weatherSymbol').textContent = current.weather_code === 0 ? "☀" : current.weather_code >= 51 ? "☂" : "☁";
+    document.getElementById('forecastList').innerHTML = data.daily.time.slice(1).map((date, index) => `<div class="forecast-row"><span>${new Date(`${date}T12:00:00`).toLocaleDateString(undefined, { weekday: "short" })}</span><strong>${Math.round(data.daily.temperature_2m_max[index + 1])}°</strong><span>${Math.round(data.daily.temperature_2m_min[index + 1])}°</span></div>`).join('');
+    document.getElementById('weatherUpdated').textContent = `Updated ${new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`;
     
   } catch (error) {
     console.error('Error fetching data:', error);
-    document.getElementById('temperatureDisplay').textContent = "Error loading";
+    document.getElementById('temperatureDisplay').textContent = "--°C";
+    document.getElementById('weatherDescription').textContent = "Weather unavailable";
   }
 }
 
 // Execute the function when the script loads
 fetchTemperature();
+setInterval(fetchTemperature, 15 * 60 * 1000);
 
 
 // Make the DIV element draggable:
-["welcome", "notebookWindow", "embedPlaylistWindow", "resumeWindow", "galleryWindow", "calendarWindow"].forEach((id) => {
+["notebookWindow", "embedPlaylistWindow", "galleryWindow"].forEach((id) => {
   const element = document.getElementById(id);
   if (element) dragElement(element);
 });
@@ -71,9 +125,24 @@ var topBar = document.querySelector("#top");
 var welcomeScreen = document.querySelector("#welcome");
 var notebookWindow = document.querySelector("#notebookWindow");
 var embedPlaylistWindow = document.querySelector("#embedPlaylistWindow");
-var resumeWindow = document.querySelector("#resumeWindow");
 var galleryWindow = document.querySelector("#galleryWindow");
 var calendarWindow = document.querySelector("#calendarWindow");
+var outsideView = document.querySelector("#outsideView");
+var outsideIcon = document.querySelector("#outsideIcon");
+var outsideClose = document.querySelector("#outsideClose");
+
+function setOutsideView(isOpen) {
+  document.body.classList.toggle("outside-open", isOpen);
+  if (outsideView) outsideView.setAttribute("aria-hidden", String(!isOpen));
+}
+
+if (outsideIcon && outsideClose) {
+  outsideIcon.addEventListener("click", () => setOutsideView(true));
+  outsideClose.addEventListener("click", () => setOutsideView(false));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setOutsideView(false);
+  });
+}
 
 function closeWindow(element) {
   element.style.display = "none";
@@ -117,7 +186,7 @@ function addWindowTapHandling(element) {
 function handleWindowTap(element) {
   biggestIndex++;
   element.style.zIndex = biggestIndex;
-  topBar.style.zIndex = biggestIndex + 1; // Ensure the top bar is always above the windows
+  if (topBar) topBar.style.zIndex = biggestIndex + 1;
   deselectIcon(selectedIcon);
 }
 
@@ -176,17 +245,18 @@ function resetAutoSlide() {
 
 const rowsContainer = document.getElementById("rowsContainer");
 const addRowButton = document.getElementById("addRowButton");
-const finalGradeDisplay = document.getElementById("finalGradeDisplay");
+const calculateButton = document.getElementById("calculateButton");
+const gradeResult = document.getElementById("result");
 
-if (rowsContainer && addRowButton && finalGradeDisplay) {
+if (rowsContainer && addRowButton && calculateButton && gradeResult) {
   function createRow() {
     const row = document.createElement("div");
     row.classList.add("row");
 
     row.innerHTML = `
-      <input type="number" placeholder="Score (%)" class="scoreInput">
-      <input type="number" placeholder="Weight (%)" class="weightInput">
-      <button class="removeRowButton">Remove</button>
+      <input type="number" min="0" max="100" step="0.1" placeholder="e.g. 85" class="scoreInput" aria-label="Assignment grade">
+      <input type="number" min="0" max="100" step="0.1" placeholder="e.g. 20" class="weightInput" aria-label="Assignment weight">
+      <button class="removeRowButton" type="button" aria-label="Remove assignment">remove</button>
     `;
 
     rowsContainer.appendChild(row);
@@ -219,10 +289,13 @@ if (rowsContainer && addRowButton && finalGradeDisplay) {
     }
 
     if (totalWeight === 0) {
-      finalGradeDisplay.textContent = "Final Grade: 0%";
+      gradeResult.textContent = "Enter at least one grade and weight.";
+      gradeResult.className = "grade-result grade-error";
     } else {
       const average = totalWeightedScore / totalWeight;
-      finalGradeDisplay.textContent = `Final Grade: ${average.toFixed(2)}%`;
+      const weightNote = totalWeight === 100 ? "Weights total 100%." : `Weights entered: ${totalWeight.toFixed(1)}%.`;
+      gradeResult.textContent = `Weighted average: ${average.toFixed(2)}%. ${weightNote}`;
+      gradeResult.className = "grade-result grade-success";
     }
   }
 
@@ -231,5 +304,84 @@ if (rowsContainer && addRowButton && finalGradeDisplay) {
   }
 
   addRowButton.addEventListener("click", createRow);
+  calculateButton.addEventListener("click", calculateFinalGrade);
   calculateFinalGrade();
+}
+
+const notebookCells = document.querySelector("#notebookCells");
+const notebookStorageKey = "mythicalOS-notebook";
+
+if (notebookCells) {
+  const defaultCells = [
+    { type: "markdown", source: "# My notebook\n\nA small place to think, sketch, and test ideas." },
+    { type: "code", source: "const message = 'Hello from your notebook';\nmessage;" }
+  ];
+
+  function saveNotebook() {
+    const cells = [...notebookCells.querySelectorAll(".notebook-cell")].map((cell) => ({ type: cell.dataset.type, source: cell.querySelector("textarea").value }));
+    localStorage.setItem(notebookStorageKey, JSON.stringify(cells));
+    document.querySelector("#notebookSaveState").textContent = "saved locally";
+  }
+
+  function renderMarkdown(source) {
+    return source.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/^### (.*)$/gm, "<h4>$1</h4>").replace(/^## (.*)$/gm, "<h3>$1</h3>").replace(/^# (.*)$/gm, "<h2>$1</h2>")
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br>");
+  }
+
+  function renumberCells() {
+    notebookCells.querySelectorAll(".cell-number").forEach((number, index) => { number.textContent = String(index + 1).padStart(2, "0"); });
+  }
+
+  function addNotebookCell(type, source = "") {
+    const cell = document.createElement("section");
+    cell.className = "notebook-cell";
+    cell.dataset.type = type;
+    cell.innerHTML = `<div class="cell-gutter"><span class="cell-number"></span><span class="cell-dot"></span></div><div class="cell-content"><div class="cell-meta"><span>${type === "code" ? "JavaScript" : "Markdown"}</span><button type="button" class="remove-cell" aria-label="Remove cell">remove</button></div><textarea aria-label="${type} cell"></textarea><div class="cell-output" hidden></div></div>`;
+    notebookCells.appendChild(cell);
+    const textarea = cell.querySelector("textarea");
+    textarea.value = source;
+    textarea.addEventListener("input", () => {
+      document.querySelector("#notebookSaveState").textContent = "saving...";
+      saveNotebook();
+      if (type === "markdown") cell.querySelector(".cell-output").innerHTML = renderMarkdown(textarea.value);
+    });
+    cell.querySelector(".remove-cell").addEventListener("click", () => { cell.remove(); renumberCells(); saveNotebook(); });
+    if (type === "markdown") cell.querySelector(".cell-output").innerHTML = renderMarkdown(source);
+    renumberCells();
+  }
+
+  function runCell(cell) {
+    const output = cell.querySelector(".cell-output");
+    output.hidden = false;
+    try {
+      const result = Function(cell.querySelector("textarea").value)();
+      output.textContent = result === undefined ? "Ran successfully" : String(result);
+      output.className = "cell-output success";
+    } catch (error) {
+      output.textContent = error.message;
+      output.className = "cell-output error";
+    }
+  }
+
+  function loadNotebook() {
+    let cells = defaultCells;
+    try { cells = JSON.parse(localStorage.getItem(notebookStorageKey)) || defaultCells; } catch (error) { cells = defaultCells; }
+    cells.forEach((cell) => addNotebookCell(cell.type, cell.source));
+  }
+
+  document.querySelector("#addMarkdownCell").addEventListener("click", () => addNotebookCell("markdown"));
+  document.querySelector("#addCodeCell").addEventListener("click", () => addNotebookCell("code"));
+  document.querySelector("#runAllCells").addEventListener("click", () => notebookCells.querySelectorAll('[data-type="code"]').forEach(runCell));
+  document.querySelector("#exportNotebook").addEventListener("click", () => {
+    saveNotebook();
+    const cells = [...notebookCells.querySelectorAll(".notebook-cell")].map((cell) => ({ cell_type: cell.dataset.type === "code" ? "code" : "markdown", metadata: { language: cell.dataset.type === "code" ? "javascript" : "markdown" }, source: cell.querySelector("textarea").value.split("\n") }));
+    const file = new Blob([JSON.stringify({ cells }, null, 2)], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(file);
+    link.download = "mythical-notebook.ipynb";
+    link.click();
+    URL.revokeObjectURL(link.href);
+  });
+  loadNotebook();
 }
