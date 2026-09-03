@@ -90,11 +90,9 @@
     </div>
 
     <div class="outside-view" id="outsideView" aria-hidden="true">
+      <!--features only available in outside view-->
+      <audio id="waterfall" src="Y2Mate.is - Relaxation_ ambient nature sounds 20 minutes of a cascading waterfall.mp3" loop></audio>
       <div class="outside-glass"></div>
-      <div class="window-frame frame-top"></div>
-      <div class="window-frame frame-bottom"></div>
-      <div class="window-frame frame-left"></div>
-      <div class="window-frame frame-right"></div>
     </div>
 
     <div id="gradeCalculator" class="app-launcher">
@@ -129,11 +127,15 @@
 
       <div id = "toolbar-links" class="links">
         <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer" class = "toolbar-link"><img src = "Gmail_Logo_512px.webp" alt="Gmail" /></a>
+        <a href="https://hdsb.elearningontario.ca/d2l/home/3200167" target="_blank" rel="noopener noreferrer" class = "toolbar-link"><img src = "brightspace logo.png" alt="D2L Brightspace" /></a>
+        <a href="https://notebook.google.com" target="_blank" rel="noopener noreferrer" class = "toolbar-link"><img src = "notebooklm.png" alt="Google Notebook" /></a>
+        <a href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer" class = "toolbar-link"><img src = "spotifylogo.webp" alt="spotify"></a>
       </div>
 
       <div class="system-status">
         <div class="status" id="timeToggle" role="button" tabindex="0" aria-expanded="false">
-          <span id="timeElement">[insert time here]</span>
+          <span id="dateElement" class="date-element"></span>
+          <span id="timeElement" class="time-element">[insert time here]</span>
         </div>
         <div class="weather-card-wrap">
           <section class="weather-card" id="weatherCard" aria-label="Weather details" hidden>
@@ -141,7 +143,7 @@
             <div class="weather-metrics"><span>Feels like <strong id="feelsLikeDisplay">--°C</strong></span><span>Wind <strong id="windDisplay">-- km/h</strong></span><span>Humidity <strong id="humidityDisplay">--%</strong></span></div>
             <div class="forecast-list" id="forecastList"></div>
             <p class="weather-updated" id="weatherUpdated">Updating...</p>
-              <button class="outside-toggle" id="outsideIcon" type="button">open window</button>
+              <button class="outside-toggle" id="outsideIcon" type="button">look outside</button>
           </section>
         </div>
       </div>

@@ -126,14 +126,23 @@ var welcomeScreen = document.querySelector("#welcome");
 var notebookWindow = document.querySelector("#notebookWindow");
 var embedPlaylistWindow = document.querySelector("#embedPlaylistWindow");
 var galleryWindow = document.querySelector("#galleryWindow");
-var calendarWindow = document.querySelector("#calendarWindow");
 var outsideView = document.querySelector("#outsideView");
 var outsideIcon = document.querySelector("#outsideIcon");
 var outsideClose = document.querySelector("#outsideClose");
+var outsideAudio = document.querySelector("#waterfall");
 
 function setOutsideView(isOpen) {
   document.body.classList.toggle("outside-open", isOpen);
   if (outsideView) outsideView.setAttribute("aria-hidden", String(!isOpen));
+
+  if (outsideAudio) {
+    if (isOpen) {
+      outsideAudio.play().catch((error) => console.warn("Outside audio could not start:", error));
+    } else {
+      outsideAudio.pause();
+      outsideAudio.currentTime = 0;
+    }
+  }
 }
 
 if (outsideIcon && outsideClose) {
@@ -151,15 +160,8 @@ function openWindow(element) {
     element.style.display = "flex";
     biggestIndex++;
     element.style.zIndex = biggestIndex;
+  if (element.parentElement) element.parentElement.style.zIndex = biggestIndex;
     if (topBar) topBar.style.zIndex = biggestIndex + 1; // Ensure the top bar is always above the windows
-}
-
-var welcomeScreenOpen = document.querySelector("#openWelcome");
-
-if (welcomeScreenOpen) {
-  welcomeScreenOpen.addEventListener("click", function() {
-    openWindow(welcomeScreen);
-  });
 }
 
 var selectedIcon = undefined;
@@ -186,6 +188,7 @@ function addWindowTapHandling(element) {
 function handleWindowTap(element) {
   biggestIndex++;
   element.style.zIndex = biggestIndex;
+  if (element.parentElement) element.parentElement.style.zIndex = biggestIndex;
   if (topBar) topBar.style.zIndex = biggestIndex + 1;
   deselectIcon(selectedIcon);
 }
