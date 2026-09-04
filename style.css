@@ -45,9 +45,7 @@ body {
   margin-bottom: 18px;
   padding: 12px 16px;
   background: var(--panel-bg);
-  border: 1px solid var(--panel-border);
   border-radius: 10px;
-  box-shadow: 0 6px 18px var(--shadow);
   font-size: 100px;
 }
 
@@ -119,13 +117,44 @@ body {
   flex-shrink: 0;
 }
 
-.weather-card-wrap { position: relative; }
-.weather-symbol { color: #f3c66b; font-size: 1.35rem; line-height: 1; }
-.weather-summary-copy { display: grid; gap: 2px; flex: 1; }
-.weather-summary-copy strong { font-size: 1rem; }
-.weather-summary-copy small { color: rgba(245,236,255,0.7); font-size: 0.68rem; }
-.weather-chevron { font-size: 1rem; transition: transform 0.2s ease; }
-.weather-card { position: absolute; right: 0; bottom: calc(100% + 10px); z-index: 20; width: min(92vw, 360px); padding: 16px; border: 1px solid var(--accent); border-radius: 10px; background: rgba(30, 20, 38, 0.98); color: var(--text); box-shadow: 0 12px 30px rgba(0,0,0,0.3); animation: weather-card-in 0.2s ease-out; }
+.weather-card-wrap { 
+  position: relative; 
+}
+.weather-symbol { 
+  color: #f3c66b; 
+  font-size: 1.35rem; 
+  line-height: 1; 
+}
+.weather-summary-copy { 
+  display: grid; 
+  gap: 2px; 
+  flex: 1; 
+}
+.weather-summary-copy strong { 
+  font-size: 1rem; 
+}
+.weather-summary-copy small { 
+  color: rgba(245,236,255,0.7); 
+  font-size: 0.68rem; 
+}
+.weather-chevron { 
+  font-size: 1rem; 
+  transition: transform 0.2s ease; 
+}
+.weather-card { 
+  position: absolute; 
+  right: 0; 
+  bottom: calc(100% + 10px); 
+  z-index: 20; 
+  width: min(92vw, 360px); 
+  padding: 16px; 
+  border: 1px solid var(--accent); 
+  border-radius: 10px; 
+  background: rgba(30, 20, 38, 0.98); 
+  color: var(--text); 
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3); 
+  animation: weather-card-in 0.2s ease-out; 
+}
 .weather-card-heading, .weather-metrics { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .weather-current { display: flex; align-items: center; gap: 7px; margin: 2px 0 3px; }
 .weather-current strong { font-size: 1.15rem; }
