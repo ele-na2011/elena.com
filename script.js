@@ -130,6 +130,57 @@ var outsideView = document.querySelector("#outsideView");
 var outsideIcon = document.querySelector("#outsideIcon");
 var outsideClose = document.querySelector("#outsideClose");
 var outsideAudio = document.querySelector("#waterfall");
+var outsideSettingsToggle = document.querySelector("#outsideSettingsToggle");
+var outsideSettings = document.querySelector("#outsideSettings");
+var locationMenu = document.querySelector("#locationMenu");
+var locationButtons = document.querySelectorAll("[data-location]");
+var audioToggle = document.querySelector("#audioToggle");
+var audioVolume = document.querySelector("#audioVolume");
+
+var outsideLocations = {
+  "moonlit-lake": "url(https://images7.alphacoders.com/134/thumb-1920-1342753.png)",
+  "wildflower-meadow": "url(https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=2400&q=85)",
+  "misty-mountains": "url(https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2400&q=85)"
+};
+
+function setOutsideLocation(locationName) {
+  var backgroundImage = outsideLocations[locationName];
+  if (!backgroundImage) return;
+  document.body.style.setProperty("--outside-background", backgroundImage);
+  if (outsideView) outsideView.style.setProperty("--outside-background", backgroundImage);
+  locationButtons.forEach((button) => button.classList.toggle("selected", button.dataset.location === locationName));
+}
+
+if (outsideSettingsToggle && outsideSettings) {
+  outsideSettingsToggle.addEventListener("click", () => {
+    var isOpen = !outsideSettings.hidden;
+    outsideSettings.hidden = isOpen;
+    outsideSettingsToggle.setAttribute("aria-expanded", String(!isOpen));
+  });
+
+  locationButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      setOutsideLocation(button.dataset.location);
+    });
+  });
+}
+
+if (outsideAudio && audioToggle && audioVolume) {
+  outsideAudio.volume = Number(audioVolume.value);
+  audioToggle.addEventListener("click", () => {
+    if (outsideAudio.paused) {
+      outsideAudio.play().catch((error) => console.warn("Outside audio could not start:", error));
+    } else {
+      outsideAudio.pause();
+    }
+    audioToggle.textContent = outsideAudio.paused ? "play" : "pause";
+  });
+  audioVolume.addEventListener("input", () => {
+    outsideAudio.volume = Number(audioVolume.value);
+  });
+  outsideAudio.addEventListener("play", () => { audioToggle.textContent = "pause"; });
+  outsideAudio.addEventListener("pause", () => { audioToggle.textContent = "play"; });
+}
 
 function setOutsideView(isOpen) {
   document.body.classList.toggle("outside-open", isOpen);
@@ -141,6 +192,7 @@ function setOutsideView(isOpen) {
     } else {
       outsideAudio.pause();
       outsideAudio.currentTime = 0;
+      if (audioToggle) audioToggle.textContent = "play";
     }
   }
 }

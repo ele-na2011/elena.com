@@ -209,6 +209,11 @@ body {
 .outside-toggle { width: 100%; margin-top: 3px; padding: 8px 10px; border: 1px solid rgba(198,154,232,0.35); background: rgba(74,46,107,0.72); font-size: 0.72rem; text-transform: lowercase; }
 .outside-toggle:hover { background: var(--accent); }
 
+:root {
+  --outside-background: url("https://images7.alphacoders.com/134/thumb-1920-1342753.png");
+  --window-frame: var(--text);
+}
+
 .outside-view {
   position: fixed;
   inset: 0;
@@ -223,30 +228,133 @@ body {
   position: absolute;
   inset: 16vh 16vw;
   z-index: 1;
-  background-image: url("https://images7.alphacoders.com/134/thumb-1920-1342753.png");
+  background-image:
+    linear-gradient(90deg, transparent 32.5%, var(--window-frame) 32.5%, var(--window-frame) 33.2%, transparent 33.2%, transparent 66.5%, var(--window-frame) 66.5%, var(--window-frame) 67.2%, transparent 67.2%),
+    linear-gradient(0deg, transparent 48%, var(--window-frame) 48%, var(--window-frame) 49%, transparent 49%),
+    var(--outside-background);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  border: 2px solid rgba(245,236,255,0.24);
-  border-radius: 12px;
-  box-shadow: 0 0 0 100vmax rgba(10, 6, 18, 0.38), inset 0 0 90px rgba(12, 8, 18, 0.3), 0 0 50px rgba(0,0,0,0.32);
+  border: 12px solid var(--text);
+  border-radius: 4px;
+  box-shadow: 0 0 0 100vmax rgba(11, 16, 14, 0.3), inset 0 0 90px rgba(12, 18, 16, 0.28), 0 18px 50px rgba(0,0,0,0.32);
   opacity: 1;
   transition: opacity 0.65s ease;
 }
 
-.outside-close {
+.outside-controls {
   position: fixed;
   right: 24px;
   bottom: 24px;
   z-index: 1001;
-  padding: 9px 12px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s ease 0.6s;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.outside-settings-toggle,
+.outside-close,
+.location-menu button {
+  color: var(--text);
+  border: 1px solid rgba(245,236,255,0.28);
+  background: rgba(22, 15, 30, 0.78);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.outside-settings-toggle,
+.outside-close {
+  padding: 10px 13px;
+  font-size: 0.78rem;
+}
+
+.outside-settings-toggle:hover,
+.outside-close:hover,
+.location-menu button:hover,
+.location-menu button.selected {
+  background: var(--accent);
+}
+
+.location-menu {
+  display: grid;
+  gap: 5px;
+  min-width: 190px;
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.location-menu-title {
+  margin: 0 0 4px;
+  color: #d7c4e3;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.location-menu button {
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 0.75rem;
+}
+
+.outside-settings {
+  width: min(280px, calc(100vw - 48px));
+  margin-bottom: 8px;
+  padding: 14px;
+  border: 1px solid rgba(245,236,255,0.28);
+  background: rgba(18, 12, 25, 0.92);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+.settings-section + .settings-section {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(245,236,255,0.16);
+}
+
+.settings-label {
+  margin: 0 0 7px;
+  color: #d7c4e3;
+  font-size: 0.7rem;
+  text-transform: lowercase;
+}
+
+.audio-actions {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-size: 0.72rem;
+}
+
+.audio-actions button {
+  grid-column: 1 / -1;
+  padding: 8px 10px;
+  color: var(--text);
+  border: 1px solid rgba(245,236,255,0.28);
+  background: rgba(22, 15, 30, 0.78);
+}
+
+.audio-actions button:hover {
+  background: var(--accent);
+}
+
+.audio-actions input {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.outside-action-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 .outside-open {
-  background-image: url("https://images7.alphacoders.com/134/thumb-1920-1342753.png");
+  background-image: var(--outside-background);
 }
 
 .outside-open .outside-glass {
@@ -258,6 +366,7 @@ body {
 
 .outside-open .outside-view { pointer-events: auto; }
 .outside-open { overflow: hidden; }
+.outside-open .outside-controls { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
 .desktop-grid,
 #gradeCalculator,

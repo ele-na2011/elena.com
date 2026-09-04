@@ -151,7 +151,31 @@
       </div>
     </footer>
 
-    <button class="outside-close" id="outsideClose" type="button">return inside</button>
+    <div class="outside-controls">
+      <section class="outside-settings" id="outsideSettings" aria-label="Outside settings" hidden>
+        <p class="location-menu-title">outside settings</p>
+        <div class="settings-section">
+          <p class="settings-label">choose a place</p>
+          <div class="location-menu" id="locationMenu">
+            <button type="button" data-location="moonlit-lake">moonlit lake</button>
+            <button type="button" data-location="wildflower-meadow">wildflower meadow</button>
+            <button type="button" data-location="misty-mountains">misty mountains</button>
+          </div>
+        </div>
+        <div class="settings-section audio-controls">
+          <p class="settings-label">waterfall audio</p>
+          <div class="audio-actions">
+            <button id="audioToggle" type="button">pause</button>
+            <label for="audioVolume">volume</label>
+            <input id="audioVolume" type="range" min="0" max="1" step="0.05" value="0.5" />
+          </div>
+        </div>
+      </section>
+      <div class="outside-action-row">
+        <button class="outside-settings-toggle" id="outsideSettingsToggle" type="button" aria-expanded="false" aria-controls="outsideSettings">settings</button>
+        <button class="outside-close" id="outsideClose" type="button">return inside</button>
+      </div>
+    </div>
 
     <script src="./script.js"></script>
   </body>
