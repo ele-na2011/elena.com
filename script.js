@@ -96,29 +96,50 @@ setInterval(fetchTemperature, 15 * 60 * 1000);
 });
 
 function dragElement(element) {
-  const handle = document.getElementById(element.id + "Handler") || element;
-  let offsetX = 0;
-  let offsetY = 0;
+  if (!element || element.dataset.dragInitialized === "true") return;
 
-  handle.onmousedown = function (e) {
-    e.preventDefault();
-    const rect = element.getBoundingClientRect();
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
-    document.onmousemove = drag;
-    document.onmouseup = stopDrag;
+  const handle = element.querySelector(".windowHandle") || document.getElementById(element.id + "Handler");
+  if (!handle) return;
+
+  let startPointerX = 0;
+  let startPointerY = 0;
+  let startElementLeft = 0;
+  let startElementTop = 0;
+
+  handle.onpointerdown = function (event) {
+    if (event.button !== 0) return;
+
+    event.preventDefault();
+    startPointerX = event.clientX;
+    startPointerY = event.clientY;
+    startElementLeft = element.offsetLeft || 0;
+    startElementTop = element.offsetTop || 0;
+    handle.setPointerCapture(event.pointerId);
+    handle.style.cursor = "grabbing";
+    handle.onpointermove = drag;
+    handle.onpointerup = stopDrag;
+    handle.onpointercancel = stopDrag;
   };
 
-  function drag(e) {
-    e.preventDefault();
-    element.style.left = (e.clientX - offsetX) + "px";
-    element.style.top = (e.clientY - offsetY) + "px";
+  function drag(event) {
+    event.preventDefault();
+    const dx = event.clientX - startPointerX;
+    const dy = event.clientY - startPointerY;
+    element.style.left = `${startElementLeft + dx}px`;
+    element.style.top = `${startElementTop + dy}px`;
   }
 
-  function stopDrag() {
-    document.onmousemove = null;
-    document.onmouseup = null;
+  function stopDrag(event) {
+    if (handle.hasPointerCapture(event.pointerId)) {
+      handle.releasePointerCapture(event.pointerId);
+    }
+    handle.style.cursor = "move";
+    handle.onpointermove = null;
+    handle.onpointerup = null;
+    handle.onpointercancel = null;
   }
+
+  element.dataset.dragInitialized = "true";
 }
 
 var topBar = document.querySelector("#top");
@@ -440,3 +461,178 @@ if (notebookCells) {
   });
   loadNotebook();
 }
+
+let currentOperand = '0';
+  let previousOperand = '';
+  let operation = undefined;
+
+  const currentDisplay = document.getElementById('currentDisplay') || document.getElementById('current');
+  const previousDisplay = document.getElementById('previousDisplay') || document.getElementById('previous');
+
+  function updateDisplay() {
+    if (!currentDisplay || !previousDisplay) return;
+    currentDisplay.textContent = currentOperand;
+    previousDisplay.textContent = previousOperand
+      ? `${previousOperand} ${operation || ''}`
+      : '';
+  }
+
+  function appendNumber(number) {
+    if (number === '.' && currentOperand.includes('.')) return;
+    if (currentOperand === '0' && number !== '.') {
+      currentOperand = number;
+    } else {
+      currentOperand += number;
+    }
+    updateDisplay();
+  }
+
+  function chooseOperation(op) {
+    if (currentOperand === '') return;
+    if (previousOperand !== '') {
+      calculate();
+    }
+    operation = op;
+    previousOperand = currentOperand;
+    currentOperand = '';
+    updateDisplay();
+  }
+
+  function calculate() {
+    let result;
+    const prev = parseFloat(previousOperand);
+    const curr = parseFloat(currentOperand);
+    if (isNaN(prev) || isNaN(curr)) return;
+
+    switch (operation) {
+      case '+':
+        result = prev + curr;
+        break;
+      case '-':
+        result = prev - curr;
+        break;
+      case '×':
+        result = prev * curr;
+        break;
+      case '÷':
+        result = curr === 0 ? 'Error' : prev / curr;
+        break;
+      case '%':
+        result = prev % curr;
+        break;
+      case '^':
+        result = Math.pow(prev, curr);
+        break;
+      default:
+        return;
+    }
+
+    currentOperand = result.toString();
+    operation = undefined;
+    previousOperand = '';
+    updateDisplay();
+  }
+
+  function compute() {
+    calculate();
+  }
+
+  function clearAll() {
+    currentOperand = '0';
+    previousOperand = '';
+    operation = undefined;
+    updateDisplay();
+  }
+
+  function deleteLast() {
+    if (currentOperand.length === 1) {
+      currentOperand = '0';
+    } else {
+      currentOperand = currentOperand.slice(0, -1);
+    }
+    updateDisplay();
+  }
+
+  // Keyboard support
+  window.addEventListener('keydown', (e) => {
+    if (e.key >= '0' && e.key <= '9') appendNumber(e.key);
+    if (e.key === '.') appendNumber('.');
+    if (e.key === '+') chooseOperation('+');
+    if (e.key === '-') chooseOperation('-');
+    if (e.key === '*') chooseOperation('×');
+    if (e.key === '/') { e.preventDefault(); chooseOperation('÷'); }
+    if (e.key === '^') chooseOperation('^');
+    if (e.key === 'Enter' || e.key === '=') calculate();
+    if (e.key === 'Backspace') deleteLast();
+    if (e.key === 'Escape') clearAll();
+  });
+
+  const input = document.getElementById('cmd-input');
+const output = document.getElementById('output');
+const terminal = document.getElementById('terminal');
+
+let commandHistory = [];
+let historyIndex = -1;
+
+// Define your available commands here
+const commands = {
+  help: () => `Available commands: help, about, clear, echo, date, whoami`,
+  about: () => `This is a custom web-based terminal built with HTML/CSS/JS.`,
+  date: () => new Date().toString(),
+  whoami: () => `guest`,
+  echo: (args) => args.join(' '),
+  clear: () => { output.innerHTML = ''; return null; }
+};
+
+function printLine(text) {
+  const line = document.createElement('div');
+  line.textContent = text;
+  output.appendChild(line);
+  terminal.scrollTop = terminal.scrollHeight;
+}
+
+function handleCommand(raw) {
+  const trimmed = raw.trim();
+  if (!trimmed) return;
+
+  printLine(`guest@web:~$ ${trimmed}`);
+
+  const [cmd, ...args] = trimmed.split(' ');
+  const handler = commands[cmd.toLowerCase()];
+
+  if (handler) {
+    const result = handler(args);
+    if (result !== null && result !== undefined) printLine(result);
+  } else {
+    printLine(`Command not found: ${cmd}. Type 'help' for a list of commands.`);
+  }
+}
+
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    handleCommand(input.value);
+    commandHistory.push(input.value);
+    historyIndex = commandHistory.length;
+    input.value = '';
+  } else if (e.key === 'ArrowUp') {
+    if (historyIndex > 0) {
+      historyIndex--;
+      input.value = commandHistory[historyIndex];
+    }
+    e.preventDefault();
+  } else if (e.key === 'ArrowDown') {
+    if (historyIndex < commandHistory.length - 1) {
+      historyIndex++;
+      input.value = commandHistory[historyIndex];
+    } else {
+      historyIndex = commandHistory.length;
+      input.value = '';
+    }
+    e.preventDefault();
+  }
+});
+
+// Keep focus on input no matter where user clicks in the terminal
+terminal.addEventListener('click', () => input.focus());
+
+printLine('Welcome! Type "help" to see available commands.');

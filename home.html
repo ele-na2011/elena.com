@@ -7,6 +7,10 @@
     <link rel="icon" href="This is for youuuu_3!🪻👀.jpg" />
     <link rel="stylesheet" href="style.css" />
     <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+
   </head>
 
   
@@ -74,6 +78,46 @@
         </div>
       </div>
 
+      <div id="calculator" class="app-launcher">
+        <div class="icon" id="calculatorIcon" onclick="initializeWindow('calculatorWindow'); openWindow(calculatorWindow); handleWindowTap(calculatorWindow);">
+          <img src="Calculator - purple app icon.jpg" alt="Calculator" class="selected" style ="border-radius:12px;"/>
+        </div>
+        <p class="iconCaption">Calculator</p>
+
+        <div class="window" id="calculatorWindow" style="display:none;">
+          <p id="calculatorHandler" class="windowHandle">
+          </p>
+          <h1 class="windowTitle">calculator</h1>
+          <div class="display" id="calculatorDisplay">
+            <div class="previous" id="previousDisplay"></div>
+            <div class="current" id="currentDisplay">0</div>
+            </div>
+          <div class="buttons">
+            <button class="clear" onclick="clearAll()">AC</button>
+            <button class="op" onclick="chooseOperation('%')">%</button>
+            <button class="op" onclick="chooseOperation('^')">^</button>
+            <button class="op" onclick="chooseOperation('/')">÷</button>
+            <button class="num" onclick="appendNumber('7')">7</button>
+            <button class="num" onclick="appendNumber('8')">8</button>
+            <button class="num" onclick="appendNumber('9')">9</button>
+            <button class="op" onclick="chooseOperation('*')">×</button>
+            <button class="num" onclick="appendNumber('4')">4</button>
+            <button class="num" onclick="appendNumber('5')">5</button>  
+          <button class="num" onclick="appendNumber('6')">6</button>
+            <button class="op" onclick="chooseOperation('-')">−</button>
+            <button class="num" onclick="appendNumber('1')">1</button>
+            <button class="num" onclick="appendNumber('2')">2</button>
+            <button class="num" onclick="appendNumber('3')">3</button>
+            <button class="op" onclick="chooseOperation('+')">+</button>
+            <button class="num" onclick="appendNumber('0')">0</button>
+            <button class="num" onclick="appendNumber('.')">.</button>
+            <button class="equals" onclick="compute()">=</button>
+          </div>
+          <button class="closeButton" id="closeCalculator" type="button" onclick="closeWindow(calculatorWindow)">close</button>
+        </div>
+
+      </div>
+
       <div id="spotifyPlaylist" class="app-launcher">
         <div class="icon" id="spotifyPlaylistIcon" onclick="initializeWindow('embedPlaylistWindow'); openWindow(embedPlaylistWindow); handleWindowTap(embedPlaylistWindow);">
           <img src="Spotify - purple app Icon.jpg" alt="Spotify playlist" class="selected" style="border-radius:inherit"/>
@@ -82,7 +126,6 @@
 
         <div class="window" id="embedPlaylistWindow" style="display:none;">
           <p id="embedPlaylistHandler" class="windowHandle">
-            <img src="icons8-drag-handle-48.png" alt="Drag handle" />
           </p>
           <h1 class="windowTitle">spotify playlist</h1>
           <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/playlist/1D2th3oVuAzVAab2eCA07Q?utm_source=generator&si=8227bd48d44f429b" width="100%" height="352" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
@@ -95,33 +138,36 @@
     <div class="outside-view" id="outsideView" aria-hidden="true">
       <!--features only available in outside view-->
       <audio id="waterfall" src="Y2Mate.is - Relaxation_ ambient nature sounds 20 minutes of a cascading waterfall.mp3" loop></audio>
+      <div></div>
       <div class="outside-glass"></div>
     </div>
 
-    <div id="gradeCalculator" class="app-launcher">
-      <div class="icon" id="gradeCalculatorIcon" onclick="initializeWindow('gradeCalculatorWindow'); openWindow(gradeCalculatorWindow); handleWindowTap(gradeCalculatorWindow);">
-        <img src="icons8-calculator-96.png" alt="Grade Calculator" class="selected" />
+    <div id="terminal" class="app-launcher">
+      <div class="icon" id="terminalIcon" onclick="initializeWindow('terminalWindow'); openWindow(terminalWindow); handleWindowTap(terminalWindow);">
+        <img src="icons8-terminal-96.png" alt="Terminal" class="selected" />
       </div>
-      <p class="iconCaption">Grade Calculator</p>
+      <p class="iconCaption">Terminal</p>
 
-      <div class="window" id="gradeCalculatorWindow" style="display:none;">
-        <p id="gradeCalculatorHandler" class="windowHandle">
-          <img src="icons8-drag-handle-48.png" alt="Drag handle" />
+      <div class="window" id="terminalWindow" style="display:none;">
+        <p id="terminalHandler" class="windowHandle">
         </p>
-        <h1 class="windowTitle">grade calculator</h1>
-        <div class="gradeCalculatorContent">
-          <p class="grade-help">Add each assignment's grade and how much it counts toward your final grade.</p>
-          <div class="grade-table-heading"><span>Grade (%)</span><span>Weight (%)</span><span></span></div>
-          <div id="rowsContainer" class="grade-rows"></div>
-          <div class="grade-actions"><button id="addRowButton" type="button">+ Add assignment</button><button id="calculateButton" type="button">Calculate average</button></div>
-          <p id="result" class="grade-result">Enter your assignments to begin.</p>
+        <h1 class="windowTitle">terminal</h1>
+        <div class="terminal-content">
+          <div id="output" class="output"></div>
+          <div class="input-line">
+            <span class="prompt">guest@web:~$</span>
+            <input type="text" id="cmd-input" autofocus autocomplete="off" />
+          </div>
         </div>
-        <button class="closeButton" id="closeGradeCalculator" type="button" onclick="closeWindow(gradeCalculatorWindow)">close</button>
+        <button class="closeButton" id="closeTerminal" type="button" onclick="closeWindow(terminalWindow)">close</button>
       </div>
     </div>
+    
 
     <footer class="system-bar">
-      <div class="brand">mythicalOS</div>
+      <div class="brand">
+        <a href="index.html">mythicalOS</a>
+      </div>
 
       <form action="https://google.com" method="get" target="_blank" class = "google-search">
     <input type="text" name="q" placeholder="Search Google..." required>
@@ -157,8 +203,7 @@
         <div class="settings-section">
           <p class="settings-label">choose a place</p>
           <div class="location-menu" id="locationMenu">
-            <button type="button" data-location="moonlit-lake">moonlit lake</button>
-            <button type="button" data-location="wildflower-meadow">wildflower meadow</button>
+            <button type="button" data-location="moonlit-lake">waterfalls</button>
             <button type="button" data-location="misty-mountains">misty mountains</button>
           </div>
         </div>

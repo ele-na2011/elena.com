@@ -26,7 +26,7 @@ body {
   background-position: center;
   background-attachment: fixed;
   min-height: 100vh;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family:"Caveat", cursive;
   color: var(--text);
   padding: 20px;
   cursor: url("cursor-small.svg") 16 16, auto;
@@ -58,6 +58,8 @@ body {
   letter-spacing: 0.08em;
   text-transform: lowercase;
   align-self: left;
+  text-decoration: none;
+  color: var(--text);
 }
 
 .status {
@@ -159,8 +161,18 @@ body {
   box-shadow: 0 12px 30px rgba(0,0,0,0.3); 
   animation: weather-card-in 0.2s ease-out; 
 }
-.weather-card-heading, .weather-metrics { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-.weather-current { display: flex; align-items: center; gap: 7px; margin: 2px 0 3px; }
+.weather-card-heading, .weather-metrics { 
+  display: flex; 
+  align-items: flex-start; 
+  justify-content: space-between; 
+  gap: 12px; 
+}
+.weather-current { 
+  display: flex; 
+  align-items: center; 
+  gap: 7px; 
+  margin: 2px 0 3px; 
+}
 .weather-current strong { font-size: 1.15rem; }
 .weather-card h2 { margin: 0; font-size: 1.1rem; }
 .weather-card-heading > strong { max-width: 74px; color: #c69ae8; font-size: 0.82rem; line-height: 1.15; text-align: right; white-space: nowrap; }
@@ -389,7 +401,7 @@ body {
 }
 
 .iconCaption {
-  margin: 7px 0 0;
+  margin:0;
   width: 86px;
   color: var(--text);
   font-size: 0.75rem;
@@ -402,8 +414,6 @@ body {
   height: 86px;
   display: grid;
   place-items: center;
-  background: rgba(24, 15, 28, 0.45);
-  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 16px;
   cursor: move;
   user-select: none;
@@ -411,7 +421,7 @@ body {
 }
 
 .icon:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 
@@ -647,6 +657,9 @@ button:hover {
 .closeButton {
   display: flex;
   justify-content: flex-end;
+  font-family:inherit;
+  max-width: 25%;
+  align-self: flex-end;
 }
 
 iframe {
@@ -673,7 +686,85 @@ iframe {
   display: flex;
   align-items: center;
   gap: 6px;
+  font-family:inherit;
 }
+
+.calculator {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
+  border: 1px solid rgba(198,154,232,0.35);
+  border-radius: 10px;
+  background: rgba(74,46,107,0.72);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.display {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(198,154,232,0.35);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.55);
+  color: var(--text-dark);
+  font-size: 1.1rem;
+}
+
+.display.previous {
+  color: rgba(38,21,47,0.75);
+  font-size: 0.85rem;
+  word-wrap: break-word;
+}
+
+.display.current {
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.button:active {
+  background: var(--accent);
+  transform: translateY(1px);
+}
+
+.num {
+  background: rgba(255,255,255,0.55);
+  color: var(--text-dark);
+}
+
+.num:hover {
+  background: rgba(255,255,255,0.75);
+
+}
+
+.op {
+  background: #ff9f43;
+}
+
+.equals {
+  background: #ff6b6b;
+
+}
+
+.equals:hover {
+  background: #ff5252;
+}
+
+.clear, .delete {
+    background: #e84118;
+  }
+  .clear:hover, .delete:hover {
+    background: #ff5b3d;
+  }
+  .zero {
+    grid-column: span 2;
+  }
 
 @media (max-width: 700px) {
   .desktop {
@@ -711,4 +802,9 @@ iframe {
   .date-element { font-size: 0.56rem; }
   .toolbar-link { width: 24px; height: 24px; padding: 3px; }
   .toolbar-link img { width: 18px; height: 18px; }
+}
+
+#terminal {
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
 }
