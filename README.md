@@ -1,22 +1,42 @@
-# elena.com
-this is a personal OS (operating system) that i will use in the future as part of my personal profile in the future
+# mythicalOS
+this is a webOS (operating system) that is meant to be productive and aesthetic.
 
 ## features
-- welcome page (draggable, closable and reopenable via clicking "elena.zip")
-- top bar showing time, date, and temperature
-- blog/notebook app (read only, i'm the only one that can update it haha)
-- resume window (please hire me)
-- spotify player (fixed widget)
++ welcome page
++ system bar
+    + date, time
+    + link back to welcome page
+    + various apps linked (gmail, etc.)
++ notebook app 
++ calculator app
++ spotify embedded playlist
++ gallery app
++ terminal
++ newsfeed
++ outside mode 
+    + background switches
+    + sound effects
++ custom cursor (still under development)
 
 ## future updates
-- top bar location tracking to show real-time temperature in user's area
-- actual articles in blog
-- app with pictures (gallery app??)
-- grade tracker app
-- more apps
-- better UI (i might make a more advanced nav system in the future)
++ custom cursor
++ maybe make this an actual OS
++ rain animations in outside mode
+
+## stack
+this project uses html, css, and javascript
++ html: basic format & elements
++ css: styling and animations
++ javascript: apps & interactions
++ jekyll (idk what this is for)
+
+## update timeline
++ v1: June 28th, 2026
++ v2: Sept 7th, 2026 --> rebranded to mythicalOS
 
 ## credits
-- SerenityUX's guide on making an OS
-- Google for google doc and spotify embed tutorial
-- Claude my W debugger
++ SerenityUX's guide on making an OS
++ Google for google doc and spotify embed tutorial
++ Claude my W debugger
++ pinterest for custom icons
++ gpt debugging 
