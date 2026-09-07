@@ -163,6 +163,22 @@
       </div>
     </div>
     
+    
+    <div id="newsfeed" class="app-launcher">
+      <div class="icon" id="newsfeedIcon" onclick="initializeWindow('newsfeedWindow'); openWindow(newsfeedWindow); handleWindowTap(newsfeedWindow);">
+        <img src="newsfeed-icon.png" alt="Newsfeed" class="selected" />
+      </div>
+      <p class="iconCaption">Newsfeed</p>
+      <div class="window" id="newsfeedWindow" style="display:none;">
+        <p id="newsfeedHandler" class="windowHandle">
+        </p>
+        <h1 class="windowTitle">newsfeed</h1>
+        <div class="newsfeed-content">
+          <iframe width="850" src="https://rss.app/embed/v1/list/f2C6WTOXGzJvnKa0" frameborder="0" style="max-height: 900px;"></iframe>
+          <button class ="closeButton" id="closeNewsfeed" type="button" onclick="closeWindow(newsfeedWindow)">close</button>
+        </div>
+      </div>
+    </div>
 
     <footer class="system-bar">
       <div class="brand">

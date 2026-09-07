@@ -418,6 +418,7 @@ body {
   cursor: move;
   user-select: none;
   transition: transform 0.15s ease;
+  background: transparent;
 }
 
 .icon:hover {

@@ -636,3 +636,21 @@ input.addEventListener('keydown', (e) => {
 terminal.addEventListener('click', () => input.focus());
 
 printLine('Welcome! Type "help" to see available commands.');
+
+// newsfeed
+async function fetchNews() {
+  try {
+    const response = await fetch('https://api.webz.io/api/news?token=b1cc4d3b-3e9e-4824-a19e-3d459c0400ff&q=trust.source.type%3A%22newsroom%22+AND+language%3A%22english%22&sort=crawled&ts=1788524618845&format=json&size=10&webz_reporter=true&includeSyndicated=false&allowNewsHistory=false');
+
+    if (!response.ok) {
+      throw new Error('HTTP error! Status: ${response.status}');
+    }
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error('Error fetching news:', error);
+  }
+}
+
+
