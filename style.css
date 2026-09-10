@@ -392,6 +392,7 @@ body {
 }
 
 .outside-open .desktop-grid,
+.outside-open .app-launcher,
 .outside-open #gradeCalculator,
 .outside-open .system-bar {
   opacity: 0;

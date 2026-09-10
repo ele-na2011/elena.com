@@ -169,6 +169,7 @@ function setOutsideLocation(locationName) {
   if (!backgroundImage) return;
   document.body.style.setProperty("--outside-background", backgroundImage);
   if (outsideView) outsideView.style.setProperty("--outside-background", backgroundImage);
+  document.body.style.backgroundImage = backgroundImage;
   locationButtons.forEach((button) => button.classList.toggle("selected", button.dataset.location === locationName));
 }
 
@@ -576,12 +577,15 @@ let historyIndex = -1;
 
 // Define your available commands here
 const commands = {
-  help: () => `Available commands: help, about, clear, echo, date, whoami`,
+  help: () => `Available commands: help, about, clear, echo, date, whoami, tutorial, apps, root`,
   about: () => `This is a custom web-based terminal built with HTML/CSS/JS.`,
   date: () => new Date().toString(),
   whoami: () => `guest`,
   echo: (args) => args.join(' '),
-  clear: () => { output.innerHTML = ''; return null; }
+  clear: () => { output.innerHTML = ''; return null; },
+  tutorial: () => 'click on any app to be able to use it. icons in the taskbar are links. you can check the weather by clicking on the time in the taskbar. dream on!',
+  apps: () => '[notebook], [gallery], [spotifyembed], [calculator], [news]',
+  root: () => URL(github.com/ele-na2011/elena.com)
 };
 
 function printLine(text) {

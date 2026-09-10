@@ -180,6 +180,36 @@
       </div>
     </div>
 
+    <div id = "toDoApp" class = "app-launcher">
+      <div class = "icon" id = "todoIcon" onclick = initializeWindow('todoWindow'); openWindow(todoWindow); handleWindowTap(todoWindow); >
+        
+      </div>
+      <p class = "iconCaption">To-Do</p>
+      <div class = "window" id = "todoWindow" style = "display:none;">
+        <p id = "todoWindowHandler" class = "windowHandle">
+        </p>
+        <h1 class = "windowTitle">to-do</h1>
+        <form id="todo-form">
+      <input type="text" id="todo-input" placeholder="Add a new task..." autocomplete="off">
+      <button type="submit">Add</button>
+    </form>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="active">Active</button>
+      <button class="filter-btn" data-filter="completed">Completed</button>
+    </div>
+
+    <ul id="todo-list"></ul>
+
+    <div class="footer">
+      <span id="items-left">0 items left</span>
+      <button id="clear-completed">Clear Completed</button>
+    </div>
+    <button class = "closeButton" id = "closeTodo" type = "button" onclick = closeWindow(todoWindow);>
+      </div>
+    </div>
+
     <footer class="system-bar">
       <div class="brand">
         <a href="index.html">mythicalOS</a>
