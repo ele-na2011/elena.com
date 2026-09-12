@@ -89,11 +89,8 @@ fetchTemperature();
 setInterval(fetchTemperature, 15 * 60 * 1000);
 
 
-// Make the DIV element draggable:
-["notebookWindow", "embedPlaylistWindow", "galleryWindow"].forEach((id) => {
-  const element = document.getElementById(id);
-  if (element) dragElement(element);
-});
+// Make every app window draggable, including windows added outside the desktop grid.
+document.querySelectorAll(".window").forEach((element) => dragElement(element));
 
 function dragElement(element) {
   if (!element || element.dataset.dragInitialized === "true") return;
@@ -106,7 +103,7 @@ function dragElement(element) {
   let startElementLeft = 0;
   let startElementTop = 0;
 
-  handle.onpointerdown = function (event) {
+  function startDrag(event) {
     if (event.button !== 0) return;
 
     event.preventDefault();
@@ -119,7 +116,10 @@ function dragElement(element) {
     handle.onpointermove = drag;
     handle.onpointerup = stopDrag;
     handle.onpointercancel = stopDrag;
-  };
+  }
+
+  handle.onpointerdown = startDrag;
+  handle.onmousedown = startDrag;
 
   function drag(event) {
     event.preventDefault();
@@ -130,7 +130,7 @@ function dragElement(element) {
   }
 
   function stopDrag(event) {
-    if (handle.hasPointerCapture(event.pointerId)) {
+    if (event.pointerId !== undefined && handle.hasPointerCapture(event.pointerId)) {
       handle.releasePointerCapture(event.pointerId);
     }
     handle.style.cursor = "move";
@@ -169,7 +169,6 @@ function setOutsideLocation(locationName) {
   if (!backgroundImage) return;
   document.body.style.setProperty("--outside-background", backgroundImage);
   if (outsideView) outsideView.style.setProperty("--outside-background", backgroundImage);
-  document.body.style.backgroundImage = backgroundImage;
   locationButtons.forEach((button) => button.classList.toggle("selected", button.dataset.location === locationName));
 }
 
@@ -186,6 +185,8 @@ if (outsideSettingsToggle && outsideSettings) {
     });
   });
 }
+
+setOutsideLocation("moonlit-lake");
 
 if (outsideAudio && audioToggle && audioVolume) {
   outsideAudio.volume = Number(audioVolume.value);
@@ -228,14 +229,13 @@ if (outsideIcon && outsideClose) {
 }
 
 function closeWindow(element) {
+  if (!element) return;
   element.style.display = "none";
 }
 function openWindow(element) {
+  if (!element) return;
     element.style.display = "flex";
-    biggestIndex++;
-    element.style.zIndex = biggestIndex;
-  if (element.parentElement) element.parentElement.style.zIndex = biggestIndex;
-    if (topBar) topBar.style.zIndex = biggestIndex + 1; // Ensure the top bar is always above the windows
+    handleWindowTap(element);
 }
 
 var selectedIcon = undefined;
@@ -254,9 +254,9 @@ function deselectIcon(element) {
 var biggestIndex = 1;
 
 function addWindowTapHandling(element) {
-  element.addEventListener("mousedown", () =>
-    handleWindowTap(element)
-  )
+  if (!element || element.dataset.tapInitialized === "true") return;
+  element.addEventListener("mousedown", () => handleWindowTap(element));
+  element.dataset.tapInitialized = "true";
 }
 
 function handleWindowTap(element) {
@@ -269,9 +269,12 @@ function handleWindowTap(element) {
 
 function initializeWindow(elementName) {
   var screen = document.querySelector("#" + elementName);
+  if (!screen) return;
   addWindowTapHandling(screen);
   dragElement(screen);
 }
+
+document.querySelectorAll(".window").forEach((screen) => addWindowTapHandling(screen));
 
 let slideIndex = 0;
 let autoSlideTimer;

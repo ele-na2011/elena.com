@@ -232,8 +232,9 @@ body {
   z-index: 1;
   overflow: hidden;
   pointer-events: none;
-  visibility: visible;
-  opacity: 1;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.65s ease, visibility 0.65s ease;
 }
 
 .outside-glass {
@@ -369,6 +370,11 @@ body {
   background-image: var(--outside-background);
 }
 
+.outside-open .outside-view {
+  visibility: visible;
+  opacity: 1;
+}
+
 .outside-open .outside-glass {
   opacity: 0;
   pointer-events: none;
@@ -391,9 +397,7 @@ body {
   z-index: 10;
 }
 
-.outside-open .desktop-grid,
 .outside-open .app-launcher,
-.outside-open #gradeCalculator,
 .outside-open .system-bar {
   opacity: 0;
   visibility: hidden;
@@ -736,30 +740,34 @@ iframe {
 }
 
 .num {
-  background: rgba(255,255,255,0.55);
+  background:#c69ae8;
   color: var(--text-dark);
 }
 
 .num:hover {
-  background: rgba(255,255,255,0.75);
+  background:#8d5bbd;
 
 }
 
 .op {
-  background: #ff9f43;
+  background:#5c2b75;
+}
+
+.op:hover {
+  background:#9e7ab5
 }
 
 .equals {
-  background: #ff6b6b;
+  background: #5c2b75;
 
 }
 
 .equals:hover {
-  background: #ff5252;
+  background: #9e7ab5
 }
 
 .clear, .delete {
-    background: #e84118;
+    background: #26152f;
   }
   .clear:hover, .delete:hover {
     background: #ff5b3d;
