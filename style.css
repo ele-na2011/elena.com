@@ -513,7 +513,7 @@ body {
   white-space: pre-wrap; }
 .cell-output.success { border-left: 3px solid #66916f; }
 .cell-output.error { border-left: 3px solid #e27b73; color: #ffb7b0; }
-.notebook-close { margin-top: 2px; display: flex; justify-content: flex-end; }
+.notebook-close { margin-top: auto; display: flex; justify-content: flex-end; }
 
 .gradeCalculatorContent { display: grid; gap: 9px; }
 .grade-help { margin: 0; color: rgba(38,21,47,0.75); font-size: 0.82rem; }
@@ -740,8 +740,13 @@ button:hover {
   display: flex;
   justify-content: flex-end;
   font-family:inherit;
-  max-width: 25%;
+  width: fit-content;
+  margin-top: auto;
   align-self: flex-end;
+}
+
+.closeButton > button {
+  margin: 0;
 }
 
 iframe {
