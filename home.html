@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mythicalOS</title>
-    <link rel="icon" href="This is for youuuu_3!🪻👀.jpg" />
+    <script>
+      if (sessionStorage.getItem("mythicalOSAccess") !== "granted") {
+        window.location.replace("index.html");
+      }
+    </script>
+    <link rel="icon" href="images/This is for youuuu_3!🪻👀.jpg" />
     <link rel="stylesheet" href="style.css" />
     <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +25,7 @@
     <div class="desktop-grid">
       <div id="notebook" class="app-launcher">
         <button class="icon" id="notebookIcon" type="button" aria-label="Open Notebook" onclick="initializeWindow('notebookWindow'); openWindow(notebookWindow); handleWindowTap(notebookWindow);">
-          <img src="Purple Notes Icon.jpg" alt="Notebook" style="border-radius:inherit"/>        
+          <img src="images/Purple Notes Icon.jpg" alt="Notebook" style="border-radius:inherit"/>        
         </button>
         <p class="iconCaption">Notebook</p>
         <div class="window notebook-window" id="notebookWindow" style="display:none;">
@@ -34,7 +39,7 @@
 
       <div id="gallery" class="app-launcher">
         <div class="icon" id="galleryIcon" onclick="initializeWindow('galleryWindow'); openWindow(galleryWindow); handleWindowTap(galleryWindow);">
-          <img src="download (8).jpg" alt="Gallery" class="selected" style="border-radius:inherit"/>
+          <img src="images/download (8).jpg" alt="Gallery" class="selected" style="border-radius:inherit"/>
         </div>
         <p class="iconCaption">Gallery</p>
 
@@ -80,7 +85,7 @@
 
       <div id="calculator" class="app-launcher">
         <div class="icon" id="calculatorIcon" onclick="initializeWindow('calculatorWindow'); openWindow(calculatorWindow); handleWindowTap(calculatorWindow);">
-          <img src="Calculator - purple app icon.jpg" alt="Calculator" class="selected" style ="border-radius:12px;"/>
+          <img src="images/Calculator - purple app icon.jpg" alt="Calculator" class="selected" style ="border-radius:12px;"/>
         </div>
         <p class="iconCaption">Calculator</p>
 
@@ -120,7 +125,7 @@
 
       <div id="spotifyPlaylist" class="app-launcher">
         <div class="icon" id="spotifyPlaylistIcon" onclick="initializeWindow('embedPlaylistWindow'); openWindow(embedPlaylistWindow); handleWindowTap(embedPlaylistWindow);">
-          <img src="Spotify - purple app Icon.jpg" alt="Spotify playlist" class="selected" style="border-radius:inherit"/>
+          <img src="images/Spotify - purple app Icon.jpg" alt="Spotify playlist" class="selected" style="border-radius:inherit"/>
         </div>
         <p class="iconCaption">Spotify playlist</p>
 
@@ -133,18 +138,16 @@
         </div>
       </div>
 
-    </div>
-
     <div class="outside-view" id="outsideView" aria-hidden="true">
       <!--features only available in outside view-->
-      <audio id="waterfall" src="Y2Mate.is - Relaxation_ ambient nature sounds 20 minutes of a cascading waterfall.mp3" loop></audio>
+      <audio id="waterfall" src="audio/Y2Mate.is - Relaxation_ ambient nature sounds 20 minutes of a cascading waterfall.mp3" loop></audio>
       <div></div>
       <div class="outside-glass"></div>
     </div>
 
     <div id="terminal" class="app-launcher">
       <div class="icon" id="terminalIcon" onclick="initializeWindow('terminalWindow'); openWindow(terminalWindow); handleWindowTap(terminalWindow);">
-        <img src="icons8-terminal-96.png" alt="Terminal" class="selected" />
+        <img src="images/icons8-terminal-96.png" alt="Terminal" class="selected" />
       </div>
       <p class="iconCaption">Terminal</p>
 
@@ -166,7 +169,7 @@
     
     <div id="newsfeed" class="app-launcher">
       <div class="icon" id="newsfeedIcon" onclick="initializeWindow('newsfeedWindow'); openWindow(newsfeedWindow); handleWindowTap(newsfeedWindow);">
-        <img src="newsfeed-icon.png" alt="Newsfeed" class="selected" />
+        <img src="images/newsfeed-icon.png" alt="Newsfeed" class="selected" />
       </div>
       <p class="iconCaption">Newsfeed</p>
       <div class="window" id="newsfeedWindow" style="display:none;">
@@ -182,7 +185,7 @@
 
     <div id = "toDoApp" class = "app-launcher">
       <div class = "icon" id = "todoIcon" onclick = "initializeWindow('todoWindow'); openWindow(todoWindow); handleWindowTap(todoWindow);">
-        
+        <img src="images/todo-icon.png" alt="To-Do" class="selected" />   
       </div>
       <p class = "iconCaption">To-Do</p>
       <div class = "window" id = "todoWindow" style = "display:none;">
@@ -206,8 +209,57 @@
       <span id="items-left">0 items left</span>
       <button id="clear-completed">Clear Completed</button>
     </div>
-    <button class = "closeButton" id = "closeTodo" type = "button" onclick = closeWindow(todoWindow);>
+    <button class = "closeButton" id = "closeTodo" type = "button" onclick = "closeWindow(todoWindow);">close</button>
       </div>
+    </div>
+
+    <div id = "systemMonitor" class = "app-launcher">
+      <div class = "icon" id = "systemMonitorIcon" onclick = "initializeWindow('systemMonitorWindow'); openWindow(systemMonitorWindow); handleWindowTap(systemMonitorWindow);">
+        <img src="images/system-monitor-icon.png" alt="System Monitor" class="selected" />   
+      </div>
+      <p class = "iconCaption">System Monitor</p>
+      <div class = "window" id = "systemMonitorWindow" style = "display:none;">
+        <p id = "systemMonitorHandler" class = "windowHandle">
+        </p>
+        <h1 class = "windowTitle">system monitor</h1>
+        <div class="monitor-content">
+          <div class="grid">
+    <div class="card">
+      <h2>CPU Usage</h2>
+      <div class="value" id="cpuVal">0%</div>
+      <div class="progress-bar"><div class="progress-fill" id="cpuBar"></div></div>
+    </div>
+    
+    <div class="card">
+      <h2>RAM Usage</h2>
+      <div class="value" id="ramVal">0%</div>
+      <div class="progress-bar"><div class="progress-fill" id="ramBar"></div></div>
+    </div>
+
+    <div class="card">
+      <h2>Storage</h2>
+      <div class="value" id="storageVal">0%</div>
+      <div class="progress-bar"><div class="progress-fill" id="storageBar"></div></div>
+    </div>
+
+    <div class="card">
+      <h2>Uptime</h2>
+      <div class="value" id="uptimeVal" style="font-size: 1.2rem; padding: 0.5rem 0;">0s</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="modeBtn" class="mode-btn">Mode: Fake Data</button>
+  </div>
+
+ 
+          <button class = "closeButton" id = "closeSystemMonitor" type = "button" onclick = "closeWindow(systemMonitorWindow);">
+            close
+          </button>
+        </div>
+      </div>
+
+    </div>
     </div>
 
     <footer class="system-bar">
@@ -221,9 +273,9 @@
       </form>
 
       <div id = "toolbar-links" class="links">
-        <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer" class = "toolbar-link"><img src = "Gmail_Logo_512px.webp" alt="Gmail" /></a>
-        <a href="https://hdsb.elearningontario.ca/d2l/home/3200167" target="_blank" rel="noopener noreferrer" class = "toolbar-link"><img src = "brightspace logo.png" alt="D2L Brightspace" /></a>
-        <a href="https://notebook.google.com" target="_blank" rel="noopener noreferrer" class = "toolbar-link"><img src = "notebooklm.png" alt="Google Notebook" /></a>
+        <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer" class = "toolbar-link"><img src = "images/Gmail_Logo_512px.webp" alt="Gmail" /></a>
+        <a href="https://hdsb.elearningontario.ca/d2l/home/3200167" target="_blank" rel="noopener noreferrer" class = "toolbar-link"><img src = "images/brightspace logo.png" alt="D2L Brightspace" /></a>
+        <a href="https://notebook.google.com" target="_blank" rel="noopener noreferrer" class = "toolbar-link"><img src = "images/notebooklm.png" alt="Google Notebook" /></a>
       </div>
 
       <div class="system-status">

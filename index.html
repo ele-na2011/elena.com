@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang = "en">
   <head>
-    <title>kpopOS</title>
-    <link rel="icon" href="This is for youuuu_3!🪻👀.jpg" />
+    <title>mythicalOS</title>
+    <link rel="icon" href="images/This is for youuuu_3!🪻👀.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
       body {
         text-align: center;
         align-items: center;
-        background-image: url("glowing-purple-cloud-4k-96.jpg");
+        background-image: url("images/glowing-purple-cloud-4k-96.jpg");
         font-family:"Caveat", cursive;
       }
 
@@ -34,6 +34,30 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
+      form {
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+      }
+
+      label {
+        font-size: 1.2rem;
+      }
+
+      input {
+        padding: 10px;
+        border: 2px solid #c9b5d8;
+        border-radius: 5px;
+        font: inherit;
+        font-size: 1.1rem;
+      }
+
+      #passwordError {
+        min-height: 1.4em;
+        color: #8b1e3f;
+        font-weight: bold;
+      }
+
     </style>
   </head>
 
@@ -43,7 +67,32 @@
       <h1>welcome to mythicalOS</h1>
       <p>hi there! welcome to mythicalOS, your own dreamy productive working space! dream on!</p>
       <br>
-      <button><a href = "home.html" style = "color:white; text-decoration:none;">Click Here to Enter</a></button>
+      <form id="passwordForm">
+        <label for="password">enter your password to continue</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required />
+        <button type="submit">Click Here to Enter</button>
+        <p id="passwordError" role="alert" aria-live="polite"></p>
+      </form>
     </div>
+
+    <script>
+      const accessPassword = "1234"; // Replace with your desired password
+      const passwordForm = document.querySelector("#passwordForm");
+      const passwordInput = document.querySelector("#password");
+      const passwordError = document.querySelector("#passwordError");
+
+      passwordForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        if (passwordInput.value === accessPassword) {
+          sessionStorage.setItem("mythicalOSAccess", "granted");
+          window.location.href = "home.html";
+          return;
+        }
+
+        passwordError.textContent = "That password is not correct. Please try again.";
+        passwordInput.select();
+      });
+    </script>
   </body>
 </html>

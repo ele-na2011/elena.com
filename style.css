@@ -21,7 +21,7 @@ html, body {
 }
 
 body {
-  background-image: url("glowing-purple-cloud-4k-96.jpg");
+  background-image: url("images/glowing-purple-cloud-4k-96.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -29,7 +29,8 @@ body {
   font-family:"Caveat", cursive;
   color: var(--text);
   padding: 20px;
-  cursor: url("cursor-small.svg") 16 16, auto;
+  padding-bottom: 110px;
+  cursor: url("images/cursor-small.svg") 16 16, auto;
 }
 
 .desktop {
@@ -209,6 +210,7 @@ body {
   flex-wrap: wrap;
   gap: 18px;
   max-width: 920px;
+  padding-bottom: 12px;
 }
 
 .app-launcher {
@@ -232,8 +234,8 @@ body {
   z-index: 1;
   overflow: hidden;
   pointer-events: none;
-  visibility: hidden;
-  opacity: 0;
+  visibility: visible;
+  opacity: 1;
   transition: opacity 0.65s ease, visibility 0.65s ease;
 }
 
@@ -371,8 +373,9 @@ body {
 }
 
 .outside-open .outside-view {
-  visibility: visible;
-  opacity: 1;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .outside-open .outside-glass {
@@ -382,7 +385,6 @@ body {
 
 .outside-open .outside-close { opacity: 1; pointer-events: auto; }
 
-.outside-open .outside-view { pointer-events: auto; }
 .outside-open { overflow: hidden; }
 .outside-open .outside-controls { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
@@ -537,6 +539,7 @@ body {
   top: 100px;
   width: min(52vw, 560px);
   min-width: 300px;
+  max-height: calc(100vh - 150px);
   padding: 12px;
   background: var(--window-bg);
   border: 2px solid var(--window-border);
@@ -567,6 +570,79 @@ body {
   margin: 0;
   font-size: 1.5rem;
   line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+#todo-form {
+  display: flex;
+  gap: 8px;
+}
+
+#todo-input {
+  min-width: 0;
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid rgba(74,46,107,0.35);
+  border-radius: 7px;
+  background: rgba(255,255,255,0.55);
+  color: var(--text-dark);
+  font: inherit;
+}
+
+.filters,
+.todo-item,
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filters {
+  flex-wrap: wrap;
+}
+
+.todo-item {
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(38,21,47,0.15);
+}
+
+.todo-item label {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+}
+
+.todo-item label span {
+  overflow-wrap: anywhere;
+}
+
+.todo-item.completed label span {
+  text-decoration: line-through;
+  opacity: 0.65;
+}
+
+.todo-item button,
+.filter-btn,
+#clear-completed {
+  flex-shrink: 0;
+  padding: 6px 9px;
+  font-size: 0.78rem;
+}
+
+#todo-list {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
 }
 
 .galleryCarousel {
@@ -686,13 +762,113 @@ iframe {
   background: rgba(22, 14, 27, 0.82);
   border: 1px solid var(--panel-border);
   border-radius: 10px;
+  flex-wrap: wrap;
 }
 
 .google-search {
   display: flex;
   align-items: center;
+  flex: 1 1 280px;
+  min-width: 220px;
+  max-width: 360px;
   gap: 6px;
+  padding: 3px;
+  border: 1px solid rgba(198,154,232,0.35);
+  border-radius: 9px;
+  background: rgba(18, 13, 24, 0.58);
   font-family:inherit;
+}
+
+.google-search input {
+  min-width: 0;
+  flex: 1;
+  padding: 7px 9px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.86rem;
+}
+
+.google-search input::placeholder {
+  color: rgba(245,236,255,0.62);
+}
+
+.google-search:focus-within {
+  border-color: #c69ae8;
+  box-shadow: 0 0 0 2px rgba(198,154,232,0.18);
+}
+
+.google-search button {
+  padding: 7px 11px;
+  border-radius: 7px;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.monitor-content {
+  display: grid;
+  gap: 12px;
+}
+
+.monitor-content .grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.monitor-content .card {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(74,46,107,0.25);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.45);
+}
+
+.monitor-content .card h2 {
+  margin: 0 0 8px;
+  color: var(--accent-dark);
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+.monitor-content .value {
+  min-height: 1.4em;
+  color: var(--text-dark);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.monitor-content .progress-bar {
+  height: 7px;
+  margin-top: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(74,46,107,0.18);
+}
+
+.monitor-content .progress-fill {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+
+.monitor-content .controls {
+  justify-content: flex-start;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.monitor-content .mode-btn {
+  font-size: 0.78rem;
 }
 
 .calculator {
@@ -777,25 +953,54 @@ iframe {
   }
 
 @media (max-width: 700px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    padding-bottom: 90px;
+  }
+
   .desktop {
     padding: 16px 14px 70px;
   }
 
   .desktop-grid {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-content: start;
+    gap: 8px 5px;
+    width: 100%;
+    max-width: none;
+    padding-bottom: 0;
+    overflow: hidden;
   }
+
+  .app-launcher { align-items: center; min-width: 0; }
+  .icon { width: 64px; height: 64px; border-radius: 12px; }
+  .icon img { width: 44px; height: 44px; }
+  .iconCaption { width: 100%; font-size: 0.66rem; }
 
   .window {
     width: min(88vw, 500px);
     min-width: 0;
+    max-height: calc(100vh - 120px);
   }
 
   .notebook-window { width: min(92vw, 560px); }
+  .monitor-content .grid { gap: 8px; }
+  .monitor-content .card { padding: 10px; }
   .system-bar {
-    width: calc(100vw - 20px);
+    position: relative;
+    width: 100%;
+    max-width: 100%;
     gap: 8px;
     padding: 6px 9px;
-    bottom: 10px;
+    left: auto;
+    bottom: auto;
+    margin: 20px auto 0;
+    transform: none;
+    flex-shrink: 0;
   }
   .brand { min-width: 0; font-size: 1rem; letter-spacing: 0.05em; white-space: nowrap; }
   .status { flex-shrink: 0; flex-direction: column; align-items: flex-end; gap: 1px; }
@@ -803,18 +1008,34 @@ iframe {
   .time-element { font-size: 1rem; }
   .system-status { min-width: 0; gap: 8px; }
   .weather-card { right: -8px; }
+  .outside-glass { inset: 10vh 5vw; border-width: 8px; }
+  .outside-view { visibility: hidden; opacity: 0; }
+  .outside-controls { right: 12px; bottom: 12px; }
+}
+
+@media (max-width: 360px) {
+  .monitor-content .grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 420px) {
-  .system-bar { width: calc(100vw - 14px); padding: 5px 7px; }
+  .system-bar { width: 100%; padding: 5px 7px; }
   .brand { font-size: 0.82rem; }
   .time-element { font-size: 0.82rem; }
   .date-element { font-size: 0.56rem; }
   .toolbar-link { width: 24px; height: 24px; padding: 3px; }
   .toolbar-link img { width: 18px; height: 18px; }
+  .google-search {
+    order: 3;
+    width: 100%;
+    flex: 1 0 100%;
+    max-width: none;
+    min-width: 0;
+  }
+  .system-bar { justify-content: center; }
 }
 
 #terminal {
   font-family: "Courier New", monospace;
   font-size: 0.9rem;
 }
+

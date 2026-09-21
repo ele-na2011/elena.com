@@ -276,6 +276,98 @@ function initializeWindow(elementName) {
 
 document.querySelectorAll(".window").forEach((screen) => addWindowTapHandling(screen));
 
+const todoForm = document.querySelector("#todo-form");
+const todoInput = document.querySelector("#todo-input");
+const todoList = document.querySelector("#todo-list");
+const itemsLeft = document.querySelector("#items-left");
+const clearCompletedButton = document.querySelector("#clear-completed");
+const filterButtons = document.querySelectorAll(".filter-btn");
+const todoStorageKey = "mythicalOS-todos";
+
+if (todoForm && todoInput && todoList && itemsLeft && clearCompletedButton) {
+  let todos = [];
+  let currentFilter = "all";
+
+  try {
+    todos = JSON.parse(localStorage.getItem(todoStorageKey)) || [];
+  } catch (error) {
+    todos = [];
+  }
+
+  function saveTodos() {
+    localStorage.setItem(todoStorageKey, JSON.stringify(todos));
+  }
+
+  function renderTodos() {
+    todoList.replaceChildren();
+
+    todos
+      .filter((todo) => currentFilter === "all" || (currentFilter === "active" && !todo.completed) || (currentFilter === "completed" && todo.completed))
+      .forEach((todo) => {
+        const item = document.createElement("li");
+        item.className = todo.completed ? "todo-item completed" : "todo-item";
+
+        const label = document.createElement("label");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = todo.completed;
+        checkbox.setAttribute("aria-label", `Mark ${todo.text} as complete`);
+        checkbox.addEventListener("change", () => {
+          todo.completed = checkbox.checked;
+          saveTodos();
+          renderTodos();
+        });
+
+        const text = document.createElement("span");
+        text.textContent = todo.text;
+        label.append(checkbox, text);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.textContent = "delete";
+        deleteButton.addEventListener("click", () => {
+          todos = todos.filter((itemTodo) => itemTodo.id !== todo.id);
+          saveTodos();
+          renderTodos();
+        });
+
+        item.append(label, deleteButton);
+        todoList.appendChild(item);
+      });
+
+    const activeCount = todos.filter((todo) => !todo.completed).length;
+    itemsLeft.textContent = `${activeCount} ${activeCount === 1 ? "item" : "items"} left`;
+  }
+
+  todoForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const text = todoInput.value.trim();
+    if (!text) return;
+
+    todos.push({ id: `${Date.now()}-${Math.random()}`, text, completed: false });
+    saveTodos();
+    renderTodos();
+    todoForm.reset();
+    todoInput.focus();
+  });
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      currentFilter = button.dataset.filter;
+      filterButtons.forEach((filterButton) => filterButton.classList.toggle("active", filterButton === button));
+      renderTodos();
+    });
+  });
+
+  clearCompletedButton.addEventListener("click", () => {
+    todos = todos.filter((todo) => !todo.completed);
+    saveTodos();
+    renderTodos();
+  });
+
+  renderTodos();
+}
+
 let slideIndex = 0;
 let autoSlideTimer;
 
@@ -660,4 +752,79 @@ async function fetchNews() {
   }
 }
 
+let isFakeMode = true;
+    let startTime = Date.now();
+
+    // Elements
+    const modeBtn = document.getElementById('modeBtn');
+    const cpuVal = document.getElementById('cpuVal');
+    const cpuBar = document.getElementById('cpuBar');
+    const ramVal = document.getElementById('ramVal');
+    const ramBar = document.getElementById('ramBar');
+    const storageVal = document.getElementById('storageVal');
+    const storageBar = document.getElementById('storageBar');
+    const uptimeVal = document.getElementById('uptimeVal');
+
+    // Toggle Mode
+    modeBtn.addEventListener('click', () => {
+      isFakeMode = !isFakeMode;
+      modeBtn.textContent = `Mode: ${isFakeMode ? 'Fake Data' : 'Real Browser API'}`;
+    });
+
+    // Helper to update UI card animations
+    function updateCard(valEl, barEl, value) {
+      valEl.textContent = `${value}%`;
+      if(barEl) barEl.style.width = `${value}%`;
+    }
+
+    // Format Uptime display
+    function formatUptime(ms) {
+      let s = Math.floor(ms / 1000);
+      let m = Math.floor(s / 60);
+      let h = Math.floor(m / 60);
+      return `${h}h ${m % 60}m ${s % 60}s`;
+    }
+
+    // Main Loop
+    async function updateMonitor() {
+      if (isFakeMode) {
+        // Mode 1: Random simulated values
+        updateCard(cpuVal, cpuBar, Math.floor(Math.random() * 90) + 5);
+        updateCard(ramVal, ramBar, Math.floor(Math.random() * 50) + 40);
+        updateCard(storageVal, storageBar, 74); // Storage generally remains static
+        uptimeVal.textContent = formatUptime(Date.now() - startTime);
+      } else {
+        // Mode 2: Real web hardware indicators
+        
+        // Real CPU (Concurrently running logical processors as a proxy)
+        const threads = navigator.hardwareConcurrency || 4;
+        const mockCpuLoad = Math.min(100, Math.max(10, (threads * 12) + Math.floor(Math.random() * 15)));
+        updateCard(cpuVal, cpuBar, mockCpuLoad);
+
+        // Real RAM (Device Memory API - returns RAM in GB, mapped to a nominal scale)
+        if (navigator.deviceMemory) {
+          const totalRam = navigator.deviceMemory; // e.g., 8
+          const estUsage = totalRam <= 4 ? 75 : 45; 
+          updateCard(ramVal, ramBar, estUsage);
+        } else {
+          updateCard(ramVal, ramBar, 52); // Fallback
+        }
+
+        // Real Storage (StorageManager API)
+        if (navigator.storage && navigator.storage.estimate) {
+          const estimate = await navigator.storage.estimate();
+          const percentUsed = estimate.quota ? Math.round((estimate.usage / estimate.quota) * 100) : 12;
+          updateCard(storageVal, storageBar, percentUsed);
+        } else {
+          updateCard(storageVal, storageBar, 35);
+        }
+
+        // Real Uptime (Performance API metric measuring page activity duration)
+        uptimeVal.textContent = formatUptime(performance.now());
+      }
+    }
+
+    // Run interval loop every 1.5 seconds
+    setInterval(updateMonitor, 1500);
+    updateMonitor(); // Initial invocation
 
