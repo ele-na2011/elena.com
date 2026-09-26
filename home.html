@@ -76,6 +76,12 @@
             </div>
           </div>
 
+          <label class="gallery-upload">
+            upload photos
+            <input id="galleryUpload" type="file" accept="image/*" multiple />
+          </label>
+          <p class="gallery-upload-status" id="galleryUploadStatus" aria-live="polite">your uploaded photos stay in this gallery session</p>
+
           <div class="closeButton" id="closeGallery" onclick="closeWindow(galleryWindow)">
             <button type="button">close</button>
           </div>
@@ -137,12 +143,34 @@
         </div>
       </div>
 
+      <div class = "app-launcher" id = "calendar">
+        <div class = "icon" id = "calendarIcon" onclick = "initializeWindow('calendarWindow'); openWindow(calendarWindow); handleWindowTap(calendarWindow);">
+          <img src = "images/Calendar - purple app icon.jpg" alt = "Calendar" class = "selected" style="border-radius:inherit"/>
+        </div>
+        <p class = "iconCaption">Calendar</p>
+
+        <div class = "window" id = "calendarWindow" style = "display:none;">
+          <p id = "calendarHandler" class = "windowHandle">
+          </p>
+          <h1 class = "windowTitle">calendar</h1>
+          <iframe src="https://calendar.google.com/calendar/embed?src=elena.fyan%40gmail.com&ctz=America%2FToronto" style="border: 0; width: 100%; height: 600px;" frameborder="0" scrolling="no"></iframe>
+          <a class="calendar-account-link" href="https://calendar.google.com/calendar/u/0/r" target="_blank" rel="noopener noreferrer">open and connect Google Calendar</a>
+          <button class = "closeButton" id = "closeCalendar" type = "button" onclick = "closeWindow(calendarWindow)">close</button>
+        </div>
+      </div>
+
     <div class="outside-view" id="outsideView" aria-hidden="true">
       <!--features only available in outside view-->
       <audio id="waterfall" src="audio/Y2Mate.is - Relaxation_ ambient nature sounds 20 minutes of a cascading waterfall.mp3" loop></audio>
       <div></div>
       <div class="outside-glass"></div>
     </div>
+
+    <aside class="daily-quote" id="dailyQuote" aria-live="polite">
+      <p class="daily-quote-label">daily spark</p>
+      <blockquote id="quoteText">Take the next small step.</blockquote>
+      <cite id="quoteAuthor">mythicalOS</cite>
+    </aside>
 
     <div id="terminal" class="app-launcher">
       <div class="icon" id="terminalIcon" onclick="initializeWindow('terminalWindow'); openWindow(terminalWindow); handleWindowTap(terminalWindow);">
@@ -259,6 +287,24 @@
       </div>
 
     </div>
+    </div>
+
+    <div id = "dinosaurGame" class = "app-launcher">
+      <div class = "icon" id = "dinoGameIcon" onclick = "initializeWindow('dinoGameWindow'); openWindow(dinoGameWindow); handleWindowTap(dinoGameWindow);">
+        <img src="images/dino-game-icon.png" alt="Dinosaur Game" class="selected" />   
+      </div>
+      <p class = "iconCaption">Dinosaur Game</p>
+      <div class = "window" id = "dinoGameWindow" style = "display:none;">
+        <p id = "dinoGameHandler" class = "windowHandle">
+        </p>
+        <h1 class = "windowTitle">dinosaur game</h1>
+        <div class="game-content">
+          <iframe src="https://chromedino.com" width="600" height="200" style="border:none;" scrolling="no" title="Chrome Dino Game"></iframe>
+          <button class = "closeButton" id = "closeDinoGame" type = "button" onclick = "closeWindow(dinoGameWindow);">
+            close
+          </button>
+        </div>
+      </div>
     </div>
     
 

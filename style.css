@@ -63,6 +63,11 @@ body {
   color: var(--text);
 }
 
+.brand a {
+  color: #fff;
+  text-decoration: none;
+}
+
 .status {
   display: flex;
   align-items: baseline;
@@ -252,9 +257,50 @@ body {
   background-attachment: fixed;
   border: 12px solid var(--text);
   border-radius: 4px;
-  box-shadow: 0 0 0 100vmax rgba(11, 16, 14, 0.3), inset 0 0 90px rgba(12, 18, 16, 0.28), 0 18px 50px rgba(0,0,0,0.32);
+  box-shadow: inset 0 0 90px rgba(12, 18, 16, 0.28), 0 18px 50px rgba(0,0,0,0.32);
   opacity: 1;
   transition: opacity 0.65s ease;
+}
+
+.daily-quote {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 1001;
+  width: min(360px, calc(100vw - 48px));
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid rgba(245,236,255,0.28);
+  border-radius: 8px;
+  background: rgba(18, 12, 25, 0.82);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  color: var(--text);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.daily-quote-label {
+  margin: 0 0 7px;
+  color: #d7c4e3;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.daily-quote blockquote {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.daily-quote cite {
+  display: block;
+  margin-top: 8px;
+  color: #c6afd5;
+  font-size: 0.78rem;
+  font-style: normal;
 }
 
 .outside-controls {
@@ -387,6 +433,7 @@ body {
 
 .outside-open { overflow: hidden; }
 .outside-open .outside-controls { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.outside-open .daily-quote { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
 .desktop-grid,
 #gradeCalculator,
@@ -401,10 +448,9 @@ body {
 
 .outside-open .app-launcher,
 .outside-open .system-bar {
-  opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
+  transition: visibility 0.35s ease;
 }
 
 .iconCaption {
@@ -710,6 +756,39 @@ body {
   z-index: 2;
 }
 
+.gallery-upload {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(74,46,107,0.35);
+  border-radius: 7px;
+  background: rgba(74,46,107,0.12);
+  color: var(--accent-dark);
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+
+.gallery-upload:hover {
+  background: rgba(74,46,107,0.22);
+}
+
+.gallery-upload input {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.gallery-upload-status {
+  margin: -4px 0 0;
+  color: rgba(38,21,47,0.7);
+  font-size: 0.72rem;
+}
+
 .dot {
   width: 10px;
   height: 10px;
@@ -754,6 +833,24 @@ iframe {
   border: 0;
   border-radius: 10px;
   display: block;
+}
+
+.calendar-account-link {
+  display: inline-block;
+  align-self: center;
+  padding: 8px 10px;
+  border: 1px solid rgba(74,46,107,0.35);
+  border-radius: 7px;
+  background: rgba(74,46,107,0.12);
+  color: var(--accent-dark);
+  font: inherit;
+  text-decoration: none;
+}
+
+.calendar-account-link:hover,
+.calendar-account-link:focus-visible {
+  background: rgba(74,46,107,0.22);
+  text-decoration: underline;
 }
 
 .system-bar {
@@ -1016,6 +1113,7 @@ iframe {
   .outside-glass { inset: 10vh 5vw; border-width: 8px; }
   .outside-view { visibility: hidden; opacity: 0; }
   .outside-controls { right: 12px; bottom: 12px; }
+  .daily-quote { left: 12px; bottom: 86px; width: min(250px, calc(100vw - 24px)); padding: 11px 12px; }
 }
 
 @media (max-width: 360px) {

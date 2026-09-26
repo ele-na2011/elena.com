@@ -157,6 +157,9 @@ var locationMenu = document.querySelector("#locationMenu");
 var locationButtons = document.querySelectorAll("[data-location]");
 var audioToggle = document.querySelector("#audioToggle");
 var audioVolume = document.querySelector("#audioVolume");
+var quoteText = document.querySelector("#quoteText");
+var quoteAuthor = document.querySelector("#quoteAuthor");
+var quoteStorageKey = "mythicalOS-daily-quote";
 
 var outsideLocations = {
   "moonlit-lake": "url(https://images7.alphacoders.com/134/thumb-1920-1342753.png)",
@@ -187,6 +190,48 @@ if (outsideSettingsToggle && outsideSettings) {
 }
 
 setOutsideLocation("moonlit-lake");
+
+function getTodayKey() {
+  return new Date().toLocaleDateString("en-CA");
+}
+
+function displayQuote(quote) {
+  if (!quoteText || !quoteAuthor || !quote) return;
+  quoteText.textContent = quote.quote;
+  quoteAuthor.textContent = quote.author ? `- ${quote.author}` : "- unknown author";
+}
+
+async function loadDailyQuote() {
+  if (!quoteText || !quoteAuthor) return;
+
+  const today = getTodayKey();
+  try {
+    const savedQuote = JSON.parse(localStorage.getItem(quoteStorageKey));
+    if (savedQuote && savedQuote.date === today) {
+      displayQuote(savedQuote);
+      return;
+    }
+  } catch (error) {
+    localStorage.removeItem(quoteStorageKey);
+  }
+
+  try {
+    const response = await fetch("https://motivational-spark-api.vercel.app/api/quotes/random/10");
+    if (!response.ok) throw new Error(`Quote request failed: ${response.status}`);
+    const quotes = await response.json();
+    if (!Array.isArray(quotes) || quotes.length === 0) throw new Error("No quotes received");
+
+    const dayNumber = Math.floor(Date.now() / 86400000);
+    const selectedQuote = quotes[dayNumber % quotes.length];
+    const dailyQuote = { date: today, quote: selectedQuote.quote, author: selectedQuote.author };
+    localStorage.setItem(quoteStorageKey, JSON.stringify(dailyQuote));
+    displayQuote(dailyQuote);
+  } catch (error) {
+    console.warn("Daily quote could not load:", error);
+  }
+}
+
+loadDailyQuote();
 
 if (outsideAudio && audioToggle && audioVolume) {
   outsideAudio.volume = Number(audioVolume.value);
@@ -399,11 +444,53 @@ function showSlide(n) {
     dots[slideIndex].classList.add("active");
   }
 
-  const captions = ["Image 1", "Image 2", "Image 3"];
   const captionElement = document.querySelector(".imageCaption");
   if (captionElement) {
-    captionElement.textContent = captions[slideIndex] || "Image";
+    captionElement.textContent = slides[slideIndex]?.dataset.caption || slides[slideIndex]?.querySelector("img")?.alt || "Image";
   }
+}
+
+const galleryUpload = document.querySelector("#galleryUpload");
+const galleryUploadStatus = document.querySelector("#galleryUploadStatus");
+const galleryCarousel = document.querySelector(".carousel");
+const galleryControls = document.querySelector(".carouselControls");
+
+if (galleryUpload && galleryUploadStatus && galleryCarousel && galleryControls) {
+  galleryUpload.addEventListener("change", () => {
+    const imageFiles = [...galleryUpload.files].filter((file) => file.type.startsWith("image/"));
+    if (imageFiles.length === 0) return;
+
+    imageFiles.forEach((file) => {
+      const slide = document.createElement("div");
+      slide.className = "carouselItem";
+      slide.dataset.caption = file.name;
+
+      const image = document.createElement("img");
+      image.src = URL.createObjectURL(file);
+      image.alt = file.name;
+      image.addEventListener("load", () => URL.revokeObjectURL(image.src), { once: true });
+      slide.appendChild(image);
+      galleryCarousel.appendChild(slide);
+
+      const dot = document.createElement("span");
+      dot.className = "dot";
+      dot.setAttribute("role", "button");
+      dot.setAttribute("tabindex", "0");
+      dot.setAttribute("aria-label", `View ${file.name}`);
+      dot.addEventListener("click", () => currentSlide([...document.querySelectorAll(".dot")].indexOf(dot)));
+      dot.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          currentSlide([...document.querySelectorAll(".dot")].indexOf(dot));
+        }
+      });
+      galleryControls.appendChild(dot);
+    });
+
+    currentSlide(document.querySelectorAll(".carouselItem").length - 1);
+    galleryUploadStatus.textContent = `${imageFiles.length} photo${imageFiles.length === 1 ? "" : "s"} added to the gallery`;
+    galleryUpload.value = "";
+  });
 }
 
 function autoSlide() {
@@ -607,9 +694,11 @@ let currentOperand = '0';
       case '-':
         result = prev - curr;
         break;
+      case '*':
       case '×':
         result = prev * curr;
         break;
+      case '/':
       case '÷':
         result = curr === 0 ? 'Error' : prev / curr;
         break;
