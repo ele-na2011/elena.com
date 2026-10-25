@@ -12,16 +12,10 @@ this is a webOS (operating system) that is meant to be productive and aesthetic.
 + spotify embedded playlist
 + gallery app
 + terminal
-+ newsfeed
 + outside mode 
     + background switches
     + sound effects
-+ custom cursor (still under development)
-
-## future updates
 + custom cursor
-+ maybe make this an actual OS
-+ rain animations in outside mode
 
 ## stack
 this project uses html, css, and javascript

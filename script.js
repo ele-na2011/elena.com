@@ -825,7 +825,6 @@ terminal.addEventListener('click', () => input.focus());
 
 printLine('Welcome! Type "help" to see available commands.');
 
-// newsfeed
 async function fetchNews() {
   try {
     const response = await fetch('https://api.webz.io/api/news?token=b1cc4d3b-3e9e-4824-a19e-3d459c0400ff&q=trust.source.type%3A%22newsroom%22+AND+language%3A%22english%22&sort=crawled&ts=1788524618845&format=json&size=10&webz_reporter=true&includeSyndicated=false&allowNewsHistory=false');
@@ -916,4 +915,3 @@ let isFakeMode = true;
     // Run interval loop every 1.5 seconds
     setInterval(updateMonitor, 1500);
     updateMonitor(); // Initial invocation
-

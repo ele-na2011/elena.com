@@ -25,7 +25,7 @@
     <div class="desktop-grid">
       <div id="notebook" class="app-launcher">
         <button class="icon" id="notebookIcon" type="button" aria-label="Open Notebook" onclick="initializeWindow('notebookWindow'); openWindow(notebookWindow); handleWindowTap(notebookWindow);">
-          <img src="images/Purple Notes Icon.jpg" alt="Notebook" style="border-radius:inherit"/>        
+          <img src="images/notebook-icon.svg" alt="Notebook" />
         </button>
         <p class="iconCaption">Notebook</p>
         <div class="window notebook-window" id="notebookWindow" style="display:none;">
@@ -39,7 +39,7 @@
 
       <div id="gallery" class="app-launcher">
         <div class="icon" id="galleryIcon" onclick="initializeWindow('galleryWindow'); openWindow(galleryWindow); handleWindowTap(galleryWindow);">
-          <img src="images/download (8).jpg" alt="Gallery" class="selected" style="border-radius:inherit"/>
+          <img src="images/gallery-icon.svg" alt="Gallery" class="selected" />
         </div>
         <p class="iconCaption">Gallery</p>
 
@@ -51,27 +51,15 @@
           <div class="galleryCarousel">
             <div class="carouselWrapper">
               <div class="carousel">
-                <div class="carouselItem">
-                  <img src="https://via.placeholder.com/600x400?text=Image+1" alt="Image 1" />
-                </div>
-                <div class="carouselItem">
-                  <img src="https://via.placeholder.com/600x400?text=Image+2" alt="Image 2" />
-                </div>
-                <div class="carouselItem">
-                  <img src="https://via.placeholder.com/600x400?text=Image+3" alt="Image 3" />
-                </div>
               </div>
 
               <div class="carouselCaption">
                 <button id="carouselButtonPrevious" type="button" onclick="changeSlide(-1)" class="carouselButton">&#10094;</button>
-                <span class="imageCaption">Image 1</span>
+                <span class="imageCaption">Upload a photo to begin</span>
                 <button id="carouselButtonNext" type="button" onclick="changeSlide(1)" class="carouselButton">&#10095;</button>
               </div>
 
               <div class="carouselControls">
-                <span class="dot active" onclick="currentSlide(0)"></span>
-                <span class="dot" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
               </div>
             </div>
           </div>
@@ -90,7 +78,7 @@
 
       <div id="calculator" class="app-launcher">
         <div class="icon" id="calculatorIcon" onclick="initializeWindow('calculatorWindow'); openWindow(calculatorWindow); handleWindowTap(calculatorWindow);">
-          <img src="images/Calculator - purple app icon.jpg" alt="Calculator" class="selected" style ="border-radius:12px;"/>
+          <img src="images/calculator-icon.svg" alt="Calculator" class="selected" />
         </div>
         <p class="iconCaption">Calculator</p>
 
@@ -130,7 +118,7 @@
 
       <div id="spotifyPlaylist" class="app-launcher">
         <div class="icon" id="spotifyPlaylistIcon" onclick="initializeWindow('embedPlaylistWindow'); openWindow(embedPlaylistWindow); handleWindowTap(embedPlaylistWindow);">
-          <img src="images/Spotify - purple app Icon.jpg" alt="Spotify playlist" class="selected" style="border-radius:inherit"/>
+          <img src="images/spotify-icon.svg" alt="Spotify playlist" class="selected" />
         </div>
         <p class="iconCaption">Spotify playlist</p>
 
@@ -145,7 +133,7 @@
 
       <div class = "app-launcher" id = "calendar">
         <div class = "icon" id = "calendarIcon" onclick = "initializeWindow('calendarWindow'); openWindow(calendarWindow); handleWindowTap(calendarWindow);">
-          <img src = "images/Calendar - purple app icon.jpg" alt = "Calendar" class = "selected" style="border-radius:inherit"/>
+          <img src = "images/calendar-icon.svg" alt = "Calendar" class = "selected" />
         </div>
         <p class = "iconCaption">Calendar</p>
 
@@ -174,7 +162,7 @@
 
     <div id="terminal" class="app-launcher">
       <div class="icon" id="terminalIcon" onclick="initializeWindow('terminalWindow'); openWindow(terminalWindow); handleWindowTap(terminalWindow);">
-        <img src="images/icons8-terminal-96.png" alt="Terminal" class="selected" />
+        <img src="images/terminal-icon.svg" alt="Terminal" class="selected" />
       </div>
       <p class="iconCaption">Terminal</p>
 
@@ -194,25 +182,9 @@
     </div>
     
     
-    <div id="newsfeed" class="app-launcher">
-      <div class="icon" id="newsfeedIcon" onclick="initializeWindow('newsfeedWindow'); openWindow(newsfeedWindow); handleWindowTap(newsfeedWindow);">
-        <img src="images/newsfeed-icon.png" alt="Newsfeed" class="selected" />
-      </div>
-      <p class="iconCaption">Newsfeed</p>
-      <div class="window" id="newsfeedWindow" style="display:none;">
-        <p id="newsfeedHandler" class="windowHandle">
-        </p>
-        <h1 class="windowTitle">newsfeed</h1>
-        <div class="newsfeed-content">
-          <iframe width="850" src="https://rss.app/embed/v1/list/f2C6WTOXGzJvnKa0" frameborder="0" style="max-height: 900px;"></iframe>
-          <button class ="closeButton" id="closeNewsfeed" type="button" onclick="closeWindow(newsfeedWindow)">close</button>
-        </div>
-      </div>
-    </div>
-
     <div id = "toDoApp" class = "app-launcher">
       <div class = "icon" id = "todoIcon" onclick = "initializeWindow('todoWindow'); openWindow(todoWindow); handleWindowTap(todoWindow);">
-        <img src="images/todo-icon.png" alt="To-Do" class="selected" />   
+        <img src="images/todo-icon.svg" alt="To-Do" class="selected" />
       </div>
       <p class = "iconCaption">To-Do</p>
       <div class = "window" id = "todoWindow" style = "display:none;">
@@ -242,7 +214,7 @@
 
     <div id = "systemMonitor" class = "app-launcher">
       <div class = "icon" id = "systemMonitorIcon" onclick = "initializeWindow('systemMonitorWindow'); openWindow(systemMonitorWindow); handleWindowTap(systemMonitorWindow);">
-        <img src="images/system-monitor-icon.png" alt="System Monitor" class="selected" />   
+        <img src="images/system-monitor-icon.svg" alt="System Monitor" class="selected" />
       </div>
       <p class = "iconCaption">System Monitor</p>
       <div class = "window" id = "systemMonitorWindow" style = "display:none;">
@@ -288,25 +260,6 @@
 
     </div>
     </div>
-
-    <div id = "dinosaurGame" class = "app-launcher">
-      <div class = "icon" id = "dinoGameIcon" onclick = "initializeWindow('dinoGameWindow'); openWindow(dinoGameWindow); handleWindowTap(dinoGameWindow);">
-        <img src="images/dino-game-icon.png" alt="Dinosaur Game" class="selected" />   
-      </div>
-      <p class = "iconCaption">Dinosaur Game</p>
-      <div class = "window" id = "dinoGameWindow" style = "display:none;">
-        <p id = "dinoGameHandler" class = "windowHandle">
-        </p>
-        <h1 class = "windowTitle">dinosaur game</h1>
-        <div class="game-content">
-          <iframe src="https://chromedino.com" width="600" height="200" style="border:none;" scrolling="no" title="Chrome Dino Game"></iframe>
-          <button class = "closeButton" id = "closeDinoGame" type = "button" onclick = "closeWindow(dinoGameWindow);">
-            close
-          </button>
-        </div>
-      </div>
-    </div>
-    
 
     <footer class="system-bar">
       <div class="brand">
